@@ -1,5 +1,6 @@
-package abdulmanov.eduard.pets
+package abdulmanov.eduard.pets.presentation.main
 
+import abdulmanov.eduard.pets.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
