@@ -18,9 +18,6 @@ abstract class BaseActivity<V: ViewBinding>: BindingActivity<V>()  {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    @Inject
-    lateinit var router: Router
-
     protected abstract val navigator: AppNavigator
 
     protected inline fun <reified VM: ViewModel> initViewModel() = viewModels<VM> { viewModelFactory }

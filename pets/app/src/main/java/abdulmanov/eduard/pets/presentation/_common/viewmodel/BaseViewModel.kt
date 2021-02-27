@@ -24,10 +24,10 @@ abstract class BaseViewModel() : ViewModel() {
         compositeDisposable.add(disposable)
     }
 
-    protected fun <T> Single<T>.safeSubscribe(onSuccess: (T) -> Unit) {
+    protected fun <T> Single<T>.safeSubscribe(onSuccess: (T) -> Unit, onError: (Throwable) -> Unit) {
         val disposable = subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(onSuccess)
+            .subscribe(onSuccess, onError)
         compositeDisposable.add(disposable)
     }
 
