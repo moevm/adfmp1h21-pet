@@ -2,5 +2,17 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#E0E0E0</color>
-    <color name="colorAccent">#0075EE</color>
+    <color name="colorAccent">#f85f6a</color>
+
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#6F6F6F</color>
+
+    <color name="colorTitleToolbar">#000000</color>
+    <color name="colorBackgroundToolbar">#FFFFFF</color>
+    <color name="colorIconToolbar">#000000</color>
+
+    <color name="colorIconLight">#999F9F9F</color>
+
+    <color name="colorControlActive">@color/colorAccent</color>
+    <color name="colorControlNormal">#A3A3A3</color>
 </resources>

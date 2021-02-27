@@ -37,6 +37,8 @@ task clean(type: Delete) {
 }
 
 ext {
+    desugarJdkLibsVersion = "1.1.1"
+    kotlinReflectVersion = "1.4.30"
     androidXCoreVersion = "1.3.2"
     androidXLegacyVersion = "1.0.0"
     androidXConstraintLayout ="2.0.4"

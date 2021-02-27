@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pets_type">
+        <item>Кошка</item>
+        <item>Собака</item>
+        <item>Птица</item>
+    </array>
+</resources>

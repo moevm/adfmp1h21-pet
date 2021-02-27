@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Pets</string>
+
+    <!--pets-->
+    <string name="pet_title_create">Создание питомца</string>
+    <string name="pet_title_edit">Редактирование питомца</string>
+    <string name="pet_name">Имя питомца</string>
+    <string name="pet_type">Вид питомца</string>
+    <string name="pet_sex">Пол</string>
+    <string name="pet_sex_male">Мужской</string>
+    <string name="pet_sex_female">Женский</string>
+    <string name="pet_birth_day">Дата рождения</string>
+    <string name="pet_birth_day_year">Год</string>
+    <string name="pet_birth_day_month">Месяц</string>
+    <string name="pet_button_create">Создать</string>
+    <string name="pet_button_save">Сохранить</string>
 </resources>
