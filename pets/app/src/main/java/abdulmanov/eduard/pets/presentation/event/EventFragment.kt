@@ -31,7 +31,10 @@ class EventFragment: BaseFragment<FragmentEventBinding>() {
     }
 
     private fun initUI(){
-        initSpinner(binding.typeTextView, requireContext().resources.getStringArray(R.array.repeat_type).toList())
+        initSpinner(
+            binding.typeTextView,
+            requireContext().resources.getStringArray(R.array.repeat_type).toList()
+        )
     }
 
     private fun initSpinner(view: AutoCompleteTextView, items: List<String>){

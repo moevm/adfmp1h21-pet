@@ -137,39 +137,37 @@
 
         </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-        <FrameLayout
-            android:id="@+id/applyContainer"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_button_ripple"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/canceledDatesTextInputLayout"
-            app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:id="@+id/applyTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/pet_button_create"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/font_normal"
-                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <ProgressBar
-                android:id="@+id/applyProgressBar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:indeterminateTint="@android:color/white"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/switchInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </FrameLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/notificationInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:hint="@string/event_notification_enabled" />
 
-    </LinearLayout>
+                    <Switch
+                        android:id="@+id/twitter_switch"
+                        android:layout_width="45dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

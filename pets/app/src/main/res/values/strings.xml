@@ -20,4 +20,5 @@
     <string name="event_event_name">Событие</string>
     <string name="event_repeat_name">Повтор</string>
     <string name="event_date_name">Дата</string>
+    <string name="event_notification_enabled">Уведомления</string>
 </resources>
