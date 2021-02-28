@@ -83,32 +83,27 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/dateInputLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
                     android:hint="@string/event_date_name"
                     android:theme="@style/TextInputLayout"
-                    app:endIconMode="dropdown_menu"
-                    app:endIconTint="@color/colorIconLight"
-                    app:boxBackgroundColor="@android:color/white">
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/colorIconLight">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dateTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextPrimary"
-                        android:inputType="none"
-                        tools:ignore="LabelFor" />
+                        android:textColor="@color/colorTextPrimary" />
+
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -125,7 +120,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:hint="@string/event_repeat_name"
             android:theme="@style/TextInputLayout"
