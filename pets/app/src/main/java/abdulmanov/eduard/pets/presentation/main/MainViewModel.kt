@@ -12,13 +12,10 @@ class MainViewModel @Inject constructor(
 ): BaseViewModel() {
 
     fun executeTransitionProcessing(){
-        petsInteractor.getCurrentPet().safeSubscribe(
-            {
-                router.replaceScreen(Screens.calendar())
-            },
-            {
-                router.replaceScreen(Screens.pet())
-            }
-        )
+        if(petsInteractor.getIdCurrentPet() == -1){
+            router.replaceScreen(Screens.pet())
+        }else{
+            router.replaceScreen(Screens.calendar())
+        }
     }
 }

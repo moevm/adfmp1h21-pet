@@ -13,6 +13,10 @@ class PetsInteractor(private val petsRepository: PetsRepository) {
             .map { pets -> pets.find { it.isCurrent } }
     }
 
+    fun getPetById(petId: Int): Single<Pet> {
+        return petsRepository.getPetById(petId)
+    }
+
     fun getPets(): Single<List<Pet>>{
         return petsRepository.getPets()
             .map { pets -> pets.sortedBy { it.name } }
@@ -34,8 +38,14 @@ class PetsInteractor(private val petsRepository: PetsRepository) {
             .doOnSuccess {
                 if(it.isNotEmpty()){
                     petsRepository.saveIdCurrentPet(it.first().id)
+                }else{
+                    petsRepository.saveIdCurrentPet(-1)
                 }
             }
             .flatMapCompletable { petsRepository.deletePet(petId) }
+    }
+
+    fun getIdCurrentPet(): Int {
+        return petsRepository.getIdCurrentPet()
     }
 }

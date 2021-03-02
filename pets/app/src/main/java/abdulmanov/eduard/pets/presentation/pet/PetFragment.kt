@@ -7,13 +7,14 @@ import abdulmanov.eduard.pets.domain.models.Sex
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
-import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -29,29 +30,28 @@ class PetFragment: BaseFragment<FragmentPetBinding>() {
 
     private val imageStartForResult = registerForActivityResult(StartActivityForResult(),::onImageResult)
 
+    private val petId: Int by lazy { requireArguments().getInt(ARG_ID_PET) }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        if(savedInstanceState == null){
-            viewModel.setPetOrDefault(requireArguments().getParcelable(ARG_PET))
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
 
-        viewModel.showApplyProgress.observe(viewLifecycleOwner, Observer(::showApplyProgress))
+        viewModel.showApplyProgress.observe(viewLifecycleOwner, Observer(binding.applyProgressButton::showProgress))
+        viewModel.showDeleteProgress.observe(viewLifecycleOwner, Observer(binding.deleteProgressButton::showProgress))
+        viewModel.initializationFieldsEvent.observe(viewLifecycleOwner,{ initFields() })
+
+        if(savedInstanceState == null){
+            viewModel.setPetOrDefault(petId)
+        }
     }
 
     private fun initUI(){
-        initFields()
-
+        Log.d("FuckFuck","init")
         binding.avatarImageView.setOnClickListener {
             pickImage()
         }
@@ -60,35 +60,42 @@ class PetFragment: BaseFragment<FragmentPetBinding>() {
         initSpinner(binding.yearTextView, BirthDate.getYears())
         initSpinner(binding.monthTextView, BirthDate.getMonths())
 
-        binding.nameTextInputEditText.bind(viewModel.pet::name)
-        binding.typeTextView.bind(viewModel.pet::type)
-        binding.yearTextView.bind(viewModel.pet::birthDateYear)
-        binding.monthTextView.bind(viewModel.pet::birthDateMonth)
-        binding.sexRadioGroup.bind(viewModel.pet::sex){
+        binding.nameTextInputEditText.bind { viewModel.pet?.name = it }
+        binding.typeTextView.bind { viewModel.pet?.type = it }
+        binding.yearTextView.bind { viewModel.pet?.birthDateYear = it }
+        binding.monthTextView.bind { viewModel.pet?.birthDateMonth = it }
+        binding.sexRadioGroup.bind({ viewModel.pet?.sex = it as Sex }, {
             when(it){
                 R.id.maleRadioButton -> Sex.MALE
                 R.id.femaleRadioButton -> Sex.FEMALE
                 else -> Sex.MALE
             }
+        })
+
+        binding.deleteProgressButton.isVisible = petId != -1
+        binding.deleteProgressButton.setOnClickListener {
+            viewModel.deletePet()
         }
 
-        binding.applyContainer.setOnClickListener {
+        binding.applyProgressButton.setText(if(petId == -1) R.string.pet_button_create else R.string.pet_button_save)
+        binding.applyProgressButton.setOnClickListener {
             viewModel.createOrUpdatePet()
         }
     }
 
     private fun initFields(){
-        setAvatar(viewModel.pet.avatar)
+        setAvatar(viewModel.pet!!.avatar)
 
-        binding.nameTextInputEditText.setText(viewModel.pet.name)
-        binding.typeTextView.setText(viewModel.pet.type)
-        binding.yearTextView.setText(viewModel.pet.birthDateYear)
-        binding.monthTextView.setText(viewModel.pet.birthDateMonth)
+        binding.nameTextInputEditText.setText(viewModel.pet!!.name)
+        binding.typeTextView.setText(viewModel.pet!!.type,false)
+        binding.yearTextView.setText(viewModel.pet!!.birthDateYear, false)
+        binding.monthTextView.setText(viewModel.pet!!.birthDateMonth, false)
 
-        when(viewModel.pet.sex){
+        when(viewModel.pet!!.sex){
             Sex.MALE -> binding.maleRadioButton.isChecked = true
             Sex.FEMALE -> binding.femaleRadioButton.isChecked = true
         }
+        binding.sexRadioGroup.jumpDrawablesToCurrentState()
     }
 
     private fun pickImage(){
@@ -98,33 +105,32 @@ class PetFragment: BaseFragment<FragmentPetBinding>() {
 
     private fun onImageResult(result: ActivityResult){
         if(result.resultCode == Activity.RESULT_OK) {
-            viewModel.pet.avatar = result.data!!.data.toString()
-            setAvatar(viewModel.pet.avatar)
+            viewModel.pet?.avatar = result.data!!.data.toString()
+            setAvatar(viewModel.pet!!.avatar)
         }
     }
 
-    private fun setAvatar(avatar: String){
-        if(avatar.isNotEmpty()){
+    private fun setAvatar(avatar: String?){
+        if(!avatar.isNullOrEmpty()){
             val uri = Uri.parse(avatar)
             binding.avatarImageView.setImageURI(uri)
         }
     }
 
-    private fun initSpinner(view: AutoCompleteTextView, items: List<String>){
-        view.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner, items))
-    }
-
-    private fun showApplyProgress(show:Boolean){
-        binding.applyTextView.isVisible = !show
-        binding.applyProgressBar.isVisible = show
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initSpinner(autoCompleteTextView: AutoCompleteTextView, items: List<String>){
+        autoCompleteTextView.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner, items))
+        autoCompleteTextView.setOnTouchListener { view, motionEvent ->
+            return@setOnTouchListener true
+        }
     }
 
     companion object {
-        private const val ARG_PET = "pet"
+        private const val ARG_ID_PET = "pet"
 
-        fun newInstance(pet: PetPresentationModel?): PetFragment {
+        fun newInstance(petId: Int): PetFragment {
             return PetFragment().apply {
-                arguments = bundleOf(ARG_PET to pet)
+                arguments = bundleOf(ARG_ID_PET to petId)
             }
         }
     }

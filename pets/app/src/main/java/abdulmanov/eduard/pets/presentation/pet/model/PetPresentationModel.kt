@@ -18,6 +18,8 @@ data class PetPresentationModel(
     var isCurrent: Boolean = false
 ): Parcelable {
 
+    fun isNew() = id == 0
+
     companion object {
 
         fun fromDomain(pet: Pet): PetPresentationModel {

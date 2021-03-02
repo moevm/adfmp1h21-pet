@@ -15,4 +15,7 @@
 
     <color name="colorControlActive">@color/colorAccent</color>
     <color name="colorControlNormal">#A3A3A3</color>
+
+    <color name="colorSeparate">#99BFBFBF</color>
+    <color name="colorBackground">#FAFAFA</color>
 </resources>

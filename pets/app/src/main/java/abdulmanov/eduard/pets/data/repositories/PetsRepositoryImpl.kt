@@ -18,6 +18,11 @@ class PetsRepositoryImpl(
             .map { pets -> pets.map { PetDbModel.toDomain(it, it.id == getIdCurrentPet()) }}
     }
 
+    override fun getPetById(petId: Int): Single<Pet> {
+        return petDao.getPetById(petId)
+            .map {PetDbModel.toDomain(it, petId == getIdCurrentPet()) }
+    }
+
     override fun createPet(pet: Pet): Single<Int> {
         val petDbModel = PetDbModel.fromDomain(pet)
 

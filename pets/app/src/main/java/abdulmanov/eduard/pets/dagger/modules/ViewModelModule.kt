@@ -2,13 +2,17 @@ package abdulmanov.eduard.pets.dagger.modules
 
 import abdulmanov.eduard.pets.dagger.annotations.ViewModelKey
 import abdulmanov.eduard.pets.presentation._common.viewmodel.ViewModelFactory
+import abdulmanov.eduard.pets.presentation.calendar.CalendarViewModel
 import abdulmanov.eduard.pets.presentation.main.MainViewModel
+import abdulmanov.eduard.pets.presentation.options.OptionsViewModel
 import abdulmanov.eduard.pets.presentation.pet.PetViewModel
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import java.util.*
 
 @Module
 abstract class ViewModelModule {
@@ -25,4 +29,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PetViewModel::class)
     abstract fun bindPetViewModel(viewModel: PetViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CalendarViewModel::class)
+    abstract fun bindCalendarViewModel(viewModel: CalendarViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OptionsViewModel::class)
+    abstract fun bindOptionsViewModel(viewModel: OptionsViewModel): ViewModel
 }

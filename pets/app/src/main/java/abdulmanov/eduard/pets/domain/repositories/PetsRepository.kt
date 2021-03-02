@@ -8,6 +8,8 @@ interface PetsRepository {
 
     fun getPets(): Single<List<Pet>>
 
+    fun getPetById(petId: Int): Single<Pet>
+
     fun createPet(pet: Pet): Single<Int>
 
     fun updatePet(pet: Pet): Completable

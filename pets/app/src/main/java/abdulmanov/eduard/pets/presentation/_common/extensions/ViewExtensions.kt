@@ -5,8 +5,8 @@ import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
 import kotlin.reflect.KMutableProperty
 
-fun EditText.bind(property: KMutableProperty<String>) = addTextChangedListener { property.setter.call(it.toString()) }
+fun EditText.bind(action: (String) -> Unit) = addTextChangedListener { action(it.toString()) }
 
-fun RadioGroup.bind(property: KMutableProperty<*>, map:(Int) -> Any) = setOnCheckedChangeListener { _, checkedId ->
-    property.setter.call(map(checkedId))
+fun RadioGroup.bind(action: (Any) -> Unit, map:(Int) -> Any) = setOnCheckedChangeListener { _, checkedId ->
+    action(map(checkedId))
 }
