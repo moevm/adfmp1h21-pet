@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CalendarViewModel @Inject constructor(
     private val router: Router
-): BaseViewModel() {
+) : BaseViewModel() {
 
     fun openScreenOptions() = router.navigateTo(Screens.options())
 }

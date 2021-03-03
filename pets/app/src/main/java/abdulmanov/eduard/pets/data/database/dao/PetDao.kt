@@ -3,7 +3,6 @@ package abdulmanov.eduard.pets.data.database.dao
 import abdulmanov.eduard.pets.data.database.models.PetDbModel
 import androidx.room.*
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Single
 
 @Dao

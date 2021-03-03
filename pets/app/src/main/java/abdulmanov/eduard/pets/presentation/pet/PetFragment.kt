@@ -24,11 +24,11 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 
-class PetFragment: BaseFragment<FragmentPetBinding>() {
+class PetFragment : BaseFragment<FragmentPetBinding>() {
 
     private val viewModel by initViewModel<PetViewModel>()
 
-    private val imageStartForResult = registerForActivityResult(StartActivityForResult(),::onImageResult)
+    private val imageStartForResult = registerForActivityResult(StartActivityForResult(), ::onImageResult)
 
     private val petId: Int by lazy { requireArguments().getInt(ARG_ID_PET) }
 
@@ -43,15 +43,15 @@ class PetFragment: BaseFragment<FragmentPetBinding>() {
 
         viewModel.showApplyProgress.observe(viewLifecycleOwner, Observer(binding.applyProgressButton::showProgress))
         viewModel.showDeleteProgress.observe(viewLifecycleOwner, Observer(binding.deleteProgressButton::showProgress))
-        viewModel.initializationFieldsEvent.observe(viewLifecycleOwner,{ initFields() })
+        viewModel.initializationFieldsEvent.observe(viewLifecycleOwner, { initFields() })
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             viewModel.setPetOrDefault(petId)
         }
     }
 
-    private fun initUI(){
-        Log.d("FuckFuck","init")
+    private fun initUI() {
+        Log.d("FuckFuck", "init")
         binding.avatarImageView.setOnClickListener {
             pickImage()
         }
@@ -65,7 +65,7 @@ class PetFragment: BaseFragment<FragmentPetBinding>() {
         binding.yearTextView.bind { viewModel.pet?.birthDateYear = it }
         binding.monthTextView.bind { viewModel.pet?.birthDateMonth = it }
         binding.sexRadioGroup.bind({ viewModel.pet?.sex = it as Sex }, {
-            when(it){
+            when (it) {
                 R.id.maleRadioButton -> Sex.MALE
                 R.id.femaleRadioButton -> Sex.FEMALE
                 else -> Sex.MALE
@@ -77,52 +77,50 @@ class PetFragment: BaseFragment<FragmentPetBinding>() {
             viewModel.deletePet()
         }
 
-        binding.applyProgressButton.setText(if(petId == -1) R.string.pet_button_create else R.string.pet_button_save)
+        binding.applyProgressButton.setText(if (petId == -1) R.string.pet_button_create else R.string.pet_button_save)
         binding.applyProgressButton.setOnClickListener {
             viewModel.createOrUpdatePet()
         }
     }
 
-    private fun initFields(){
+    private fun initFields() {
         setAvatar(viewModel.pet!!.avatar)
 
         binding.nameTextInputEditText.setText(viewModel.pet!!.name)
-        binding.typeTextView.setText(viewModel.pet!!.type,false)
+        binding.typeTextView.setText(viewModel.pet!!.type, false)
         binding.yearTextView.setText(viewModel.pet!!.birthDateYear, false)
         binding.monthTextView.setText(viewModel.pet!!.birthDateMonth, false)
 
-        when(viewModel.pet!!.sex){
+        when (viewModel.pet!!.sex) {
             Sex.MALE -> binding.maleRadioButton.isChecked = true
             Sex.FEMALE -> binding.femaleRadioButton.isChecked = true
         }
         binding.sexRadioGroup.jumpDrawablesToCurrentState()
     }
 
-    private fun pickImage(){
+    private fun pickImage() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         imageStartForResult.launch(intent)
     }
 
-    private fun onImageResult(result: ActivityResult){
-        if(result.resultCode == Activity.RESULT_OK) {
+    private fun onImageResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
             viewModel.pet?.avatar = result.data!!.data.toString()
             setAvatar(viewModel.pet!!.avatar)
         }
     }
 
-    private fun setAvatar(avatar: String?){
-        if(!avatar.isNullOrEmpty()){
+    private fun setAvatar(avatar: String?) {
+        if (!avatar.isNullOrEmpty()) {
             val uri = Uri.parse(avatar)
             binding.avatarImageView.setImageURI(uri)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun initSpinner(autoCompleteTextView: AutoCompleteTextView, items: List<String>){
+    private fun initSpinner(autoCompleteTextView: AutoCompleteTextView, items: List<String>) {
         autoCompleteTextView.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner, items))
-        autoCompleteTextView.setOnTouchListener { view, motionEvent ->
-            return@setOnTouchListener true
-        }
+        autoCompleteTextView.setOnTouchListener { _, _ -> return@setOnTouchListener true }
     }
 
     companion object {

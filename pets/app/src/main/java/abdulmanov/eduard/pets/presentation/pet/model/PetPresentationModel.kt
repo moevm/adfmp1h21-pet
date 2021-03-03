@@ -16,11 +16,15 @@ data class PetPresentationModel(
     var birthDateMonth: String = "",
     var birthDateYear: String = "",
     var isCurrent: Boolean = false
-): Parcelable {
+) : Parcelable {
 
     fun isNew() = id == 0
 
     companion object {
+
+        fun fromDomain(pets: List<Pet>): List<PetPresentationModel> {
+            return pets.map(::fromDomain)
+        }
 
         fun fromDomain(pet: Pet): PetPresentationModel {
             return PetPresentationModel(

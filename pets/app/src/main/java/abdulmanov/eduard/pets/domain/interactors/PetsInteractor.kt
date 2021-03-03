@@ -2,7 +2,6 @@ package abdulmanov.eduard.pets.domain.interactors
 
 import abdulmanov.eduard.pets.domain.models.Pet
 import abdulmanov.eduard.pets.domain.repositories.PetsRepository
-import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -17,7 +16,7 @@ class PetsInteractor(private val petsRepository: PetsRepository) {
         return petsRepository.getPetById(petId)
     }
 
-    fun getPets(): Single<List<Pet>>{
+    fun getPets(): Single<List<Pet>> {
         return petsRepository.getPets()
             .map { pets -> pets.sortedBy { it.name } }
     }
@@ -36,13 +35,17 @@ class PetsInteractor(private val petsRepository: PetsRepository) {
         return petsRepository.getPets()
             .map { pets -> pets.filter { it.id != petId } }
             .doOnSuccess {
-                if(it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     petsRepository.saveIdCurrentPet(it.first().id)
-                }else{
+                } else {
                     petsRepository.saveIdCurrentPet(-1)
                 }
             }
             .flatMapCompletable { petsRepository.deletePet(petId) }
+    }
+
+    fun saveIdCurrentPet(petId: Int) {
+        return petsRepository.saveIdCurrentPet(petId)
     }
 
     fun getIdCurrentPet(): Int {

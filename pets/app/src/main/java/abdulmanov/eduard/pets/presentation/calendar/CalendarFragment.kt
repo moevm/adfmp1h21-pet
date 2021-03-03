@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 
-class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
+class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
     private val viewModel by initViewModel<CalendarViewModel>()
 
@@ -24,13 +24,13 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.menuItem -> viewModel.openScreenOptions()
         }
         return true
     }
 
-    private fun initUI(){
+    private fun initUI() {
         binding.toolbar.run {
             inflateMenu(R.menu.menu_calendar)
             setOnMenuItemClickListener(this@CalendarFragment::onOptionsItemSelected)

@@ -9,12 +9,12 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val router: Router,
     private val petsInteractor: PetsInteractor
-): BaseViewModel() {
+) : BaseViewModel() {
 
-    fun executeTransitionProcessing(){
-        if(petsInteractor.getIdCurrentPet() == -1){
+    fun executeTransitionProcessing() {
+        if (petsInteractor.getIdCurrentPet() == -1) {
             router.replaceScreen(Screens.pet())
-        }else{
+        } else {
             router.replaceScreen(Screens.calendar())
         }
     }
