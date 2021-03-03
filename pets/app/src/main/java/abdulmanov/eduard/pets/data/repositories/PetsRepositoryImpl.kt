@@ -11,16 +11,16 @@ import io.reactivex.Single
 class PetsRepositoryImpl(
     private val petDao: PetDao,
     private val sharedPreferences: PetsSharedPreferences
-): PetsRepository {
+) : PetsRepository {
 
     override fun getPets(): Single<List<Pet>> {
         return petDao.getPets()
-            .map { pets -> pets.map { PetDbModel.toDomain(it, it.id == getIdCurrentPet()) }}
+            .map { pets -> pets.map { PetDbModel.toDomain(it, it.id == getIdCurrentPet()) } }
     }
 
     override fun getPetById(petId: Int): Single<Pet> {
         return petDao.getPetById(petId)
-            .map {PetDbModel.toDomain(it, petId == getIdCurrentPet()) }
+            .map { PetDbModel.toDomain(it, petId == getIdCurrentPet()) }
     }
 
     override fun createPet(pet: Pet): Single<Int> {

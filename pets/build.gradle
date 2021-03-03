@@ -47,6 +47,7 @@ ext {
     appCompatVersion = "1.2.0"
     materialVersion = "1.3.0"
     calendarViewVersion = "1.0.1"
+    delegateAdapterVersion = "4.0"
     ciceroneVersion = "6.4"
     daggerVersion = "2.29.1"
     liveEventVersion = "1.2.0"

@@ -5,11 +5,12 @@ import abdulmanov.eduard.pets.databinding.FragmentOptionsBinding
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
+import abdulmanov.eduard.pets.presentation.change_pet.ChangePetBottomSheetDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 
-class OptionsFragment: BaseFragment<FragmentOptionsBinding>() {
+class OptionsFragment : BaseFragment<FragmentOptionsBinding>() {
 
     private val viewModel by initViewModel<OptionsViewModel>()
 
@@ -24,7 +25,7 @@ class OptionsFragment: BaseFragment<FragmentOptionsBinding>() {
         initUI()
     }
 
-    private fun initUI(){
+    private fun initUI() {
         binding.toolbar.run {
             setTitle(R.string.options_toolbar_title)
             setNavigationIcon(R.drawable.ic_arrow_back)
@@ -44,8 +45,9 @@ class OptionsFragment: BaseFragment<FragmentOptionsBinding>() {
         binding.statisticItemOption.root.setOnClickListener { viewModel.openScreenStatistic() }
     }
 
-    private fun openChangePetDialog(){
-
+    private fun openChangePetDialog() {
+        val dialog = ChangePetBottomSheetDialog.newInstance()
+        dialog.show(childFragmentManager, ChangePetBottomSheetDialog.TAG)
     }
 
     companion object {

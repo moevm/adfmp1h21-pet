@@ -21,6 +21,9 @@
     <string name="options_interview">Опрос</string>
     <string name="options_statistic">Статистика</string>
 
+    <!--change_pet-->
+    <string name="change_pet_add">Добавить нового</string>
+
     <!--interview-->
     <string name="interview_toolbar_title">Ежедневный опрос</string>
     <string name="interview_day_type">Опрос за день</string>

@@ -4,6 +4,7 @@ import abdulmanov.eduard.pets.dagger.modules.*
 import abdulmanov.eduard.pets.presentation.calendar.CalendarFragment
 import abdulmanov.eduard.pets.presentation.main.MainActivity
 import abdulmanov.eduard.pets.presentation.options.OptionsFragment
+import abdulmanov.eduard.pets.presentation.change_pet.ChangePetBottomSheetDialog
 import abdulmanov.eduard.pets.presentation.pet.PetFragment
 import android.content.Context
 import dagger.BindsInstance
@@ -35,4 +36,6 @@ interface AppComponent {
     fun inject(calendarFragment: CalendarFragment)
 
     fun inject(optionsFragment: OptionsFragment)
+
+    fun inject(changePetBottomSheetDialog: ChangePetBottomSheetDialog)
 }

@@ -57,6 +57,7 @@ dependencies {
     //ui
     implementation "com.google.android.material:material:$materialVersion"
     implementation "com.github.kizitonwose:CalendarView:$calendarViewVersion"
+    implementation "com.github.liverm0r:delegateadapters:$delegateAdapterVersion"
 
     //singleLiveEvent
     implementation "com.github.hadilq.liveevent:liveevent:$liveEventVersion"

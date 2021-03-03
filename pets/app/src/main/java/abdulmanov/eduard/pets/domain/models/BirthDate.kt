@@ -2,12 +2,11 @@ package abdulmanov.eduard.pets.domain.models
 
 import java.text.DateFormatSymbols
 import java.time.LocalDate
-import java.time.YearMonth
 
 data class BirthDate(
     val month: String,
     val year: String
-){
+) {
 
     override fun toString(): String {
         return "$month,$year"

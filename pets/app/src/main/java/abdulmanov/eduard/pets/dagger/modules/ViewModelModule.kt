@@ -3,10 +3,10 @@ package abdulmanov.eduard.pets.dagger.modules
 import abdulmanov.eduard.pets.dagger.annotations.ViewModelKey
 import abdulmanov.eduard.pets.presentation._common.viewmodel.ViewModelFactory
 import abdulmanov.eduard.pets.presentation.calendar.CalendarViewModel
+import abdulmanov.eduard.pets.presentation.change_pet.ChangePetViewModel
 import abdulmanov.eduard.pets.presentation.main.MainViewModel
 import abdulmanov.eduard.pets.presentation.options.OptionsViewModel
 import abdulmanov.eduard.pets.presentation.pet.PetViewModel
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
@@ -39,4 +39,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(OptionsViewModel::class)
     abstract fun bindOptionsViewModel(viewModel: OptionsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChangePetViewModel::class)
+    abstract fun bindChangePetViewModel(viewModel: ChangePetViewModel): ViewModel
 }
