@@ -13,6 +13,7 @@ import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -68,6 +69,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
             scrollToDate(LocalDate.now())
 
             post { monthScrollListener = { selectDate(it.yearMonth.atDay(1)) } }
+        }
+
+        binding.floatingButton.setOnClickListener {
+            Log.d("FuckFuck", "onClick")
         }
     }
 
