@@ -51,13 +51,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="16dp"
                 android:paddingStart="64dp"
                 android:paddingEnd="64dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/avatarImageView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_animal_paw" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/font_few_big"
+                    android:textSize="@dimen/font_big"
+                    android:textStyle="bold"
+                    android:lineSpacingMultiplier="1.25"
                     android:text="@string/interview_pet_icon_label"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent" />
@@ -74,6 +85,7 @@
             android:layout_marginBottom="10dp"
             android:layout_alignParentBottom="true"
             android:textAlignment="center"
+            android:lineSpacingMultiplier="1.25"
             android:textColor="@color/colorTextSecondary"
             android:text="@string/interview_footer" />
 
