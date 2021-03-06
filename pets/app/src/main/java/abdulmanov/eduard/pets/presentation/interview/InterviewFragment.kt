@@ -7,6 +7,13 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
+
+import abdulmanov.eduard.pets.presentation.main.MainActivity
+
+import android.widget.RatingBar
+import android.widget.RatingBar.OnRatingBarChangeListener
+
 
 class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,12 +32,14 @@ class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
 
         binding.toolbar.run {
             setTitle(R.string.interview_toolbar_title)
-            setNavigationIcon(R.drawable.ic_arrow_back_white)
-            setBackgroundColor(resources.getColor(R.color.colorControlActive))
-            setTitleTextColor(resources.getColor(R.color.colorPrimary))
+            setNavigationIcon(R.drawable.ic_arrow_back)
             setNavigationOnClickListener {
                 // Todo: Add jump back
             }
+        }
+
+        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            // Todo: Add rating pet mood
         }
     }
 
