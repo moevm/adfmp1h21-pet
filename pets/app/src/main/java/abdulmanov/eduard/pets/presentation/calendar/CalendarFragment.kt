@@ -4,6 +4,11 @@ import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.FragmentCalendarBinding
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
+import abdulmanov.eduard.pets.presentation._common.extensions.getDaysOfWeekFromLocale
+import abdulmanov.eduard.pets.presentation._common.extensions.getMonthsForCalendar
+import abdulmanov.eduard.pets.presentation._common.extensions.getScreenSize
+import abdulmanov.eduard.pets.presentation.calendar.helpers.CalendarDayBinder
+import abdulmanov.eduard.pets.presentation.calendar.helpers.CalendarMonthHeaderBinder
 import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
 import android.content.Context
 import android.net.Uri
@@ -11,10 +16,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
+import com.kizitonwose.calendarview.utils.Size
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 
 class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
     private val viewModel by initViewModel<CalendarViewModel>()
+
+    private val selectionFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,6 +54,32 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
         binding.toolbar.run {
             inflateMenu(R.menu.menu_calendar)
             setOnMenuItemClickListener(this@CalendarFragment::onOptionsItemSelected)
+        }
+
+        binding.calendarView.run {
+            val daysOfWeek = getDaysOfWeekFromLocale()
+            val monthsForCalendar = getMonthsForCalendar()
+
+            daySize = context.getScreenSize().run { Size(x/7, x/10) }
+            dayBinder = CalendarDayBinder(daySize.height, ::selectDate)
+            monthHeaderBinder = CalendarMonthHeaderBinder(daysOfWeek)
+            setup(monthsForCalendar.first, monthsForCalendar.second, daysOfWeek.first())
+            selectDate(LocalDate.now())
+            scrollToDate(LocalDate.now())
+
+            post { monthScrollListener = { selectDate(it.yearMonth.atDay(1)) } }
+        }
+    }
+
+    private fun selectDate(date: LocalDate) {
+        val dayBinder = binding.calendarView.dayBinder as CalendarDayBinder
+
+        if(date != dayBinder.selectedDate) {
+            val oldDate = dayBinder.selectedDate
+            dayBinder.selectedDate = date
+            binding.calendarView.notifyDateChanged(oldDate)
+            binding.calendarView.notifyDateChanged(date)
+            binding.currentSelectDateTextView.text = selectionFormatter.format(date)
         }
     }
 
