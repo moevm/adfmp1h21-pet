@@ -26,4 +26,9 @@
     <string name="interview_day_type">Опрос за день</string>
     <string name="interview_pet_icon_label">Оцените настроение вашего питомца</string>
     <string name="interview_footer">Проходите опрос каждый день для полчения статистики в конце месяца</string>
+    <string name="interview_rating_1.0">Агрессивный</string>
+    <string name="interview_rating_2.0">Злой</string>
+    <string name="interview_rating_3.0">Спокойный</string>
+    <string name="interview_rating_4.0">Добрый</string>
+    <string name="interview_rating_5.0">Ласковый</string>
 </resources>
