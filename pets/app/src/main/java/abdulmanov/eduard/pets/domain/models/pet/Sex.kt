@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.domain.models
+package abdulmanov.eduard.pets.domain.models.pet
 
 import java.lang.IllegalStateException
 

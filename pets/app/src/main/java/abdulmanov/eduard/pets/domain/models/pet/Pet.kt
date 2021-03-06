@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.domain.models
+package abdulmanov.eduard.pets.domain.models.pet
 
 data class Pet(
     val id: Int,

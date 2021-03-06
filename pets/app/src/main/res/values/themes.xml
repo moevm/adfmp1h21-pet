@@ -48,8 +48,15 @@
         <item name="boxCornerRadiusBottomEnd">12dp</item>
     </style>
 
+    <style name="TimePickerStyle">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
+
 </resources>

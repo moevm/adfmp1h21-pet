@@ -4,6 +4,7 @@ import abdulmanov.eduard.pets.dagger.annotations.ViewModelKey
 import abdulmanov.eduard.pets.presentation._common.viewmodel.ViewModelFactory
 import abdulmanov.eduard.pets.presentation.calendar.CalendarViewModel
 import abdulmanov.eduard.pets.presentation.change_pet.ChangePetViewModel
+import abdulmanov.eduard.pets.presentation.event.EventViewModel
 import abdulmanov.eduard.pets.presentation.main.MainViewModel
 import abdulmanov.eduard.pets.presentation.options.OptionsViewModel
 import abdulmanov.eduard.pets.presentation.pet.PetViewModel
@@ -44,4 +45,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ChangePetViewModel::class)
     abstract fun bindChangePetViewModel(viewModel: ChangePetViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EventViewModel::class)
+    abstract fun bindEventViewModel(viewModel: EventViewModel): ViewModel
 }

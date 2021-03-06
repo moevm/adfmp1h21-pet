@@ -14,6 +14,18 @@
     <string name="pet_button_save">Сохранить</string>
     <string name="pet_button_delete">Удалить</string>
 
+    <!--event-->
+    <string name="event_new_title">Новое событие</string>
+    <string name="event_edit_title">Редактирование события</string>
+    <string name="event_name">Событие</string>
+    <string name="event_date">Дата</string>
+    <string name="event_repeat_mode">Повтор</string>
+    <string name="event_notification">Уведомление</string>
+    <string name="event_notification_on">Включить уведомление</string>
+    <string name="event_time">Время уведомления</string>
+    <string name="event_button_create">Создать</string>
+    <string name="event_button_save">Сохранить</string>
+
     <!--options-->
     <string name="options_toolbar_title">Параметры</string>
     <string name="options_edit_pet">Редактировать питомца</string>
@@ -34,4 +46,14 @@
     <string name="interview_rating_3.0">Спокойный</string>
     <string name="interview_rating_4.0">Добрый</string>
     <string name="interview_rating_5.0">Ласковый</string>
+
+    <!--date_picker-->
+    <string name="date_picker_select_date">Выберите дату</string>
+    <string name="date_picker_throw_off">Сбросить</string>
+    <string name="date_picker_to_apply">Применить</string>
+
+    <!--time_picker-->
+    <string name="time_picker_select_time">Выберите время</string>
+    <string name="time_picker_throw_off">Сбросить</string>
+    <string name="time_picker_to_apply">Применить</string>
 </resources>

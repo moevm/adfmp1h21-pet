@@ -2,11 +2,12 @@ package abdulmanov.eduard.pets.presentation.pet
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.FragmentPetBinding
-import abdulmanov.eduard.pets.domain.models.BirthDate
-import abdulmanov.eduard.pets.domain.models.Sex
+import abdulmanov.eduard.pets.domain.models.pet.BirthDate
+import abdulmanov.eduard.pets.domain.models.pet.Sex
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
+import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -51,14 +52,13 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
     }
 
     private fun initUI() {
-        Log.d("FuckFuck", "init")
         binding.avatarImageView.setOnClickListener {
             pickImage()
         }
 
-        initSpinner(binding.typeTextView, requireContext().resources.getStringArray(R.array.pets_type).toList())
-        initSpinner(binding.yearTextView, BirthDate.getYears())
-        initSpinner(binding.monthTextView, BirthDate.getMonths())
+        binding.typeTextView.initSpinner(requireContext().resources.getStringArray(R.array.pets_type).toList())
+        binding.yearTextView.initSpinner(BirthDate.getYears())
+        binding.monthTextView.initSpinner(BirthDate.getMonths())
 
         binding.nameTextInputEditText.bind { viewModel.pet?.name = it }
         binding.typeTextView.bind { viewModel.pet?.type = it }
@@ -117,14 +117,8 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initSpinner(autoCompleteTextView: AutoCompleteTextView, items: List<String>) {
-        autoCompleteTextView.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner, items))
-        autoCompleteTextView.setOnTouchListener { _, _ -> return@setOnTouchListener true }
-    }
-
     companion object {
-        private const val ARG_ID_PET = "pet"
+        private const val ARG_ID_PET = "id_pet"
 
         fun newInstance(petId: Int): PetFragment {
             return PetFragment().apply {

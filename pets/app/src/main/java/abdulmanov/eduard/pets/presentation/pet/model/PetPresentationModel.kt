@@ -1,8 +1,8 @@
 package abdulmanov.eduard.pets.presentation.pet.model
 
-import abdulmanov.eduard.pets.domain.models.BirthDate
-import abdulmanov.eduard.pets.domain.models.Pet
-import abdulmanov.eduard.pets.domain.models.Sex
+import abdulmanov.eduard.pets.domain.models.pet.BirthDate
+import abdulmanov.eduard.pets.domain.models.pet.Pet
+import abdulmanov.eduard.pets.domain.models.pet.Sex
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 

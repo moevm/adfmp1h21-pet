@@ -1,13 +1,14 @@
 package abdulmanov.eduard.pets.presentation._common.extensions
 
+import abdulmanov.eduard.pets.R
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Point
 import android.os.Build
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -16,6 +17,12 @@ fun EditText.bind(action: (String) -> Unit) = addTextChangedListener { action(it
 
 fun RadioGroup.bind(action: (Any) -> Unit, map: (Int) -> Any) = setOnCheckedChangeListener { _, checkedId ->
     action(map(checkedId))
+}
+
+@SuppressLint("ClickableViewAccessibility")
+fun AutoCompleteTextView.initSpinner(items: List<String>) {
+    setAdapter(ArrayAdapter(context, R.layout.item_spinner, items))
+    setOnTouchListener { _, _ -> return@setOnTouchListener true }
 }
 
 fun TextView.setTextColorRes(@ColorRes color:Int){
@@ -35,3 +42,6 @@ fun Context.getScreenSize(): Point {
         Point().apply { wm.defaultDisplay.getSize(this) }
     }
 }
+
+
+fun Int.dpToPx() = this * Resources.getSystem().displayMetrics.density

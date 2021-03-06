@@ -20,6 +20,8 @@ class CalendarViewModel @Inject constructor(
 
     fun openScreenOptions() = router.navigateTo(Screens.options())
 
+    fun openScreenEvent(eventId: Int = -1) = router.navigateTo(Screens.event(eventId))
+
     fun getCurrentPet(){
         petsInteractor.getCurrentPet()
             .map(PetPresentationModel::fromDomain)

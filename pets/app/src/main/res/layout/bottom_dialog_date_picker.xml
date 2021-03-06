@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/selectedDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="46dp"
+        android:textSize="@dimen/font_few_big"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:text="@string/date_picker_select_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.kizitonwose.calendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:cv_dayViewResource="@layout/item_date_picker_calendar_day"
+        app:cv_monthHeaderResource="@layout/item_date_picker_calendar_day_legend"
+        app:cv_orientation="horizontal"
+        app:cv_maxRowCount="6"
+        app:cv_outDateStyle="endOfGrid"
+        app:cv_inDateStyle="allMonths"
+        app:cv_scrollMode="paged"
+        app:layout_constraintTop_toBottomOf="@id/selectedDateTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/horizontalSeparate"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendarView" />
+
+    <View
+        android:id="@+id/verticalSeparate"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontalSeparate"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/throwOffTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="@dimen/font_small"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:text="@string/date_picker_throw_off"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/verticalSeparate"
+        app:layout_constraintTop_toBottomOf="@id/horizontalSeparate"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/applyTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="@dimen/font_small"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:text="@string/date_picker_to_apply"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/verticalSeparate"
+        app:layout_constraintTop_toBottomOf="@id/horizontalSeparate"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

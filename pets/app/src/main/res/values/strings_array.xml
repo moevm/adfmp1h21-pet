@@ -5,7 +5,14 @@
         <item>Собака</item>
         <item>Птица</item>
     </array>
-    
+
+    <array name="repeat_mode">
+        <item>Не повторять</item>
+        <item>Каждый день</item>
+        <item>Каждую неделю</item>
+        <item>Каждый месяц</item>
+    </array>
+
     <array name="interview_type_day">
         <item>Сегодня</item>
         <item>Вчера</item>

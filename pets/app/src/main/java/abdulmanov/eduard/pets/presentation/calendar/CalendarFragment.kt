@@ -72,7 +72,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
         }
 
         binding.floatingButton.setOnClickListener {
-            Log.d("FuckFuck", "onClick")
+            viewModel.openScreenEvent()
         }
     }
 

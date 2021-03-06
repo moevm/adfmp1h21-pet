@@ -3,7 +3,7 @@ package abdulmanov.eduard.pets.data.repositories
 import abdulmanov.eduard.pets.data.database.dao.PetDao
 import abdulmanov.eduard.pets.data.database.models.PetDbModel
 import abdulmanov.eduard.pets.data.sharedpreferences.PetsSharedPreferences
-import abdulmanov.eduard.pets.domain.models.Pet
+import abdulmanov.eduard.pets.domain.models.pet.Pet
 import abdulmanov.eduard.pets.domain.repositories.PetsRepository
 import io.reactivex.Completable
 import io.reactivex.Single

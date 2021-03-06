@@ -1,6 +1,6 @@
 package abdulmanov.eduard.pets.domain.repositories
 
-import abdulmanov.eduard.pets.domain.models.Pet
+import abdulmanov.eduard.pets.domain.models.pet.Pet
 import io.reactivex.Completable
 import io.reactivex.Single
 
