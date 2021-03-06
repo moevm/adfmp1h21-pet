@@ -22,6 +22,16 @@ class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
             return@setOnTouchListener true
         }
         binding.dayTypeTextView.setText(items[0], false)
+
+        binding.toolbar.run {
+            setTitle(R.string.interview_toolbar_title)
+            setNavigationIcon(R.drawable.ic_arrow_back_white)
+            setBackgroundColor(resources.getColor(R.color.colorControlActive))
+            setTitleTextColor(resources.getColor(R.color.colorPrimary))
+            setNavigationOnClickListener {
+                // Todo: Add jump back
+            }
+        }
     }
 
     companion object {
