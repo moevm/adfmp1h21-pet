@@ -1,6 +1,7 @@
 package abdulmanov.eduard.pets.presentation
 
 import abdulmanov.eduard.pets.presentation.calendar.CalendarFragment
+import abdulmanov.eduard.pets.presentation.interview.InterviewFragment
 import abdulmanov.eduard.pets.presentation.options.OptionsFragment
 import abdulmanov.eduard.pets.presentation.pet.PetFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
@@ -17,5 +18,9 @@ object Screens {
 
     fun options() = FragmentScreen {
         OptionsFragment.newInstance()
+    }
+
+    fun interview() = FragmentScreen {
+        InterviewFragment.newInstance()
     }
 }
