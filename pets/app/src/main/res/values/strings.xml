@@ -22,5 +22,5 @@
     <string name="options_statistic">Статистика</string>
 
     <!--interview-->
-    <string name="day_type">Опрос за</string>
+    <string name="day_type">Опрос за день</string>
 </resources>
