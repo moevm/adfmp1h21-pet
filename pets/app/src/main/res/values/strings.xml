@@ -22,7 +22,7 @@
     <string name="options_statistic">Статистика</string>
 
     <!--interview-->
-    <string name="day_type">Опрос за день</string>
+    <string name="interview_day_type">Опрос за день</string>
     <string name="interview_pet_icon_label">Оцените настроение вашего питомца</string>
     <string name="interview_footer">Проходите опрос каждый день для полчения статистики в конце месяца</string>
 </resources>
