@@ -5,4 +5,15 @@
         <item>Собака</item>
         <item>Птица</item>
     </array>
+    
+    <array name="interview_type_day">
+        <item>Сегодня</item>
+        <item>Вчера</item>
+        <item>Позавчера</item>
+        <item>3 дня назад</item>
+        <item>4 дня назад</item>
+        <item>5 дня назад</item>
+        <item>6 дней назад</item>
+        <item>Неделю назад</item>
+    </array>
 </resources>
