@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.date_picker.helpers
+package abdulmanov.eduard.pets.presentation.event.date_picker.helpers
 
 import abdulmanov.eduard.pets.databinding.ItemDatePickerCalendarDayLegendBinding
 import android.annotation.SuppressLint

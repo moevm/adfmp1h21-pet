@@ -5,7 +5,7 @@ import abdulmanov.eduard.pets.databinding.FragmentOptionsBinding
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
-import abdulmanov.eduard.pets.presentation.change_pet.ChangePetBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.options.change_pet.ChangePetBottomSheetDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View

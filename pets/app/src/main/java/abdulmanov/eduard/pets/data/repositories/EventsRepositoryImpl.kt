@@ -13,6 +13,11 @@ class EventsRepositoryImpl(
     private val sharedPreferences: PetsSharedPreferences
 ): EventsRepository {
 
+    override fun getEvents(): Single<List<Event>> {
+        return eventDao.getEvents(sharedPreferences.idCurrentPet)
+            .map(EventDbModel::toDomain)
+    }
+
     override fun getEventById(id: Int): Single<Event> {
         return eventDao.getEventById(id)
             .map(EventDbModel::toDomain)

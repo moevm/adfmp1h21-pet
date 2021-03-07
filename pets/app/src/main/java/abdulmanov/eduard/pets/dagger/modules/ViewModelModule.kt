@@ -3,7 +3,7 @@ package abdulmanov.eduard.pets.dagger.modules
 import abdulmanov.eduard.pets.dagger.annotations.ViewModelKey
 import abdulmanov.eduard.pets.presentation._common.viewmodel.ViewModelFactory
 import abdulmanov.eduard.pets.presentation.calendar.CalendarViewModel
-import abdulmanov.eduard.pets.presentation.change_pet.ChangePetViewModel
+import abdulmanov.eduard.pets.presentation.options.change_pet.ChangePetViewModel
 import abdulmanov.eduard.pets.presentation.event.EventViewModel
 import abdulmanov.eduard.pets.presentation.main.MainViewModel
 import abdulmanov.eduard.pets.presentation.options.OptionsViewModel
@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import java.util.*
 
 @Module
 abstract class ViewModelModule {

@@ -20,4 +20,7 @@ abstract class EventDao {
 
     @Query("SELECT * FROM ${EventDbModel.TABLE_NAME} WHERE ${EventDbModel.COLUMN_ID} = :id")
     abstract fun getEventById(id: Int): Single<EventDbModel>
+
+    @Query("SELECT * FROM ${EventDbModel.TABLE_NAME} WHERE ${EventDbModel.COLUMN_ID_PET} = :petId")
+    abstract fun getEvents(petId: Int): Single<List<EventDbModel>>
 }

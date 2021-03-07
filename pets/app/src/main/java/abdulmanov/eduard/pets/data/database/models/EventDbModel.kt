@@ -49,6 +49,10 @@ data class EventDbModel(
         const val COLUMN_TIME = "event_time"
         const val COLUMN_ID_PET = "event_id_pet"
 
+        fun toDomain(events : List<EventDbModel>): List<Event> {
+            return events.map(::toDomain)
+        }
+
         fun toDomain(event: EventDbModel): Event {
             return Event(
                 id = event.id,

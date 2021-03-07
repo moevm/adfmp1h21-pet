@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.change_pet.models
+package abdulmanov.eduard.pets.presentation.options.change_pet.models
 
 import abdulmanov.eduard.pets.R
 import androidx.annotation.DrawableRes

@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.time_picker
+package abdulmanov.eduard.pets.presentation.event.time_picker
 
 import android.os.Build
 import android.widget.TimePicker

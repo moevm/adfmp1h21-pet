@@ -3,22 +3,18 @@ package abdulmanov.eduard.pets.presentation.event
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.FragmentEventBinding
 import abdulmanov.eduard.pets.domain.models.event.RepeatMode
-import abdulmanov.eduard.pets.domain.models.pet.Sex
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
-import abdulmanov.eduard.pets.presentation.date_picker.DatePickerBottomSheetDialog
-import abdulmanov.eduard.pets.presentation.pet.PetFragment
-import abdulmanov.eduard.pets.presentation.time_picker.TimePickerBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.event.date_picker.DatePickerBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.event.time_picker.TimePickerBottomSheetDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 
 class EventFragment : BaseFragment<FragmentEventBinding>(),

@@ -1,9 +1,9 @@
-package abdulmanov.eduard.pets.presentation.change_pet
+package abdulmanov.eduard.pets.presentation.options.change_pet
 
 import abdulmanov.eduard.pets.domain.interactors.PetsInteractor
 import abdulmanov.eduard.pets.presentation.Screens
 import abdulmanov.eduard.pets.presentation._common.viewmodel.BaseViewModel
-import abdulmanov.eduard.pets.presentation.change_pet.models.AddPresentationModel
+import abdulmanov.eduard.pets.presentation.options.change_pet.models.AddPresentationModel
 import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

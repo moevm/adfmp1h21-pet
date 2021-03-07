@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.time_picker
+package abdulmanov.eduard.pets.presentation.event.time_picker
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.BottomDialogTimePickerBinding

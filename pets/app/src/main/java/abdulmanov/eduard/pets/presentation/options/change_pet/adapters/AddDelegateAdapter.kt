@@ -1,7 +1,7 @@
-package abdulmanov.eduard.pets.presentation.change_pet.adapters
+package abdulmanov.eduard.pets.presentation.options.change_pet.adapters
 
 import abdulmanov.eduard.pets.databinding.ItemPetBinding
-import abdulmanov.eduard.pets.presentation.change_pet.models.AddPresentationModel
+import abdulmanov.eduard.pets.presentation.options.change_pet.models.AddPresentationModel
 import android.view.View
 import com.livermor.delegateadapter.delegate.ViewBindingDelegateAdapter
 
