@@ -7,5 +7,6 @@ data class Event(
     val date: String,
     val isNotification: Boolean,
     val time: String,
+    val doneDates: List<String>,
     val petId: Int
 )

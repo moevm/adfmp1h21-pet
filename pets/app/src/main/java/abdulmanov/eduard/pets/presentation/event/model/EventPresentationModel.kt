@@ -16,6 +16,8 @@ data class EventPresentationModel(
     var date: String = "",
     var isNotification: Boolean = false,
     var time: String = "",
+    val doneDates: List<String> = emptyList(),
+    val isDone: Boolean = false,
     val petId: Int = -1
 ): Parcelable {
 
@@ -25,8 +27,10 @@ data class EventPresentationModel(
 
         private val DATE_FORMATTER_PRESENTER = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy")
 
-        fun fromDomain(events: List<Event>): List<EventPresentationModel> {
-            return events.map(::fromDomain)
+        fun fromDomain(events: List<Event>, currentDate: LocalDate): List<EventPresentationModel> {
+            return events.map { event ->
+                fromDomain(event).copy(isDone = currentDate.toString() in event.doneDates)
+            }
         }
 
         fun fromDomain(event: Event): EventPresentationModel {
@@ -37,6 +41,7 @@ data class EventPresentationModel(
                 date = event.date.ifNotEmpty { DATE_FORMATTER_PRESENTER.format(LocalDate.parse(it)) },
                 isNotification = event.isNotification,
                 time = event.time,
+                doneDates = event.doneDates,
                 petId = event.petId
             )
         }
@@ -49,6 +54,7 @@ data class EventPresentationModel(
                 date = event.date.ifNotEmpty { LocalDate.parse(it, DATE_FORMATTER_PRESENTER).toString() },
                 isNotification = event.isNotification,
                 time = event.time,
+                doneDates = event.doneDates,
                 petId = event.petId
             )
         }

@@ -3,6 +3,7 @@ package abdulmanov.eduard.pets.domain.interactors
 import abdulmanov.eduard.pets.domain.models.event.Event
 import abdulmanov.eduard.pets.domain.models.event.RepeatMode
 import abdulmanov.eduard.pets.domain.repositories.EventsRepository
+import abdulmanov.eduard.pets.presentation.event.model.EventPresentationModel
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.time.LocalDate
@@ -48,5 +49,12 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
                     }
                 }
             }
+    }
+
+    fun finishEventsForSelectedDate(event: Event, isDone: Boolean, date: LocalDate): Completable {
+        val updatedDoneDates = event.doneDates.toMutableList().apply {
+            if(isDone) add(date.toString()) else remove(date.toString())
+        }
+        return eventsRepository.updateEvent(event.copy(doneDates = updatedDoneDates))
     }
 }

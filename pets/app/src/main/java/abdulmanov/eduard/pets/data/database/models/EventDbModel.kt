@@ -35,6 +35,8 @@ data class EventDbModel(
     val isNotification: Boolean,
     @ColumnInfo(name = COLUMN_TIME)
     val time: String,
+    @ColumnInfo(name = COLUMN_DONE_DATES)
+    val doneDates: String = "",
     @ColumnInfo(name = COLUMN_ID_PET)
     val petId: Int
 ){
@@ -47,6 +49,7 @@ data class EventDbModel(
         const val COLUMN_DATE = "event_date"
         const val COLUMN_IS_NOTIFICATION = "event_is_notification"
         const val COLUMN_TIME = "event_time"
+        const val COLUMN_DONE_DATES = "event_done_dates"
         const val COLUMN_ID_PET = "event_id_pet"
 
         fun toDomain(events : List<EventDbModel>): List<Event> {
@@ -61,6 +64,11 @@ data class EventDbModel(
                 date = event.date,
                 isNotification = event.isNotification,
                 time = event.time,
+                doneDates = if(event.doneDates.isNotEmpty()){
+                    event.doneDates.split(";" )
+                } else {
+                    emptyList()
+                },
                 petId = event.petId
             )
         }
@@ -73,6 +81,11 @@ data class EventDbModel(
                 date = event.date,
                 isNotification = event.isNotification,
                 time = event.time,
+                doneDates = if(event.doneDates.isNotEmpty()) {
+                    event.doneDates.joinToString(";", "", "")
+                } else {
+                    ""
+                },
                 petId = petId
             )
         }

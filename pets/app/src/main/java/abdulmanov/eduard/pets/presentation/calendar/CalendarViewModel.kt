@@ -51,7 +51,16 @@ class CalendarViewModel @Inject constructor(
 
     fun getEventsForSelectedDate(date: LocalDate) {
         eventsInteractor.getEventsForSelectedDate(date)
-            .map(EventPresentationModel::fromDomain)
+            .map { EventPresentationModel.fromDomain(it, date) }
             .safeSubscribe { _events.value = it }
+    }
+
+    fun finishEventsForSelectedDate(event: EventPresentationModel, isDone: Boolean){
+        val domainModel = EventPresentationModel.toDomain(event)
+
+        eventsInteractor.finishEventsForSelectedDate(domainModel, isDone, _selectedDate.value!!)
+            .addDispatchers()
+            .subscribe()
+            .connect()
     }
 }

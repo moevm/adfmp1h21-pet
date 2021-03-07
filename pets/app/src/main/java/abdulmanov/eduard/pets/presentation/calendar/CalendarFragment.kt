@@ -85,7 +85,9 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(), EditEventBotto
 
         binding.eventsRecyclerView.run {
             layoutManager = LinearLayoutManager(context)
-            adapter = CompositeDelegateAdapter(EventsDelegateAdapter({},::openEditEventDialog))
+            adapter = CompositeDelegateAdapter(
+                EventsDelegateAdapter(viewModel::finishEventsForSelectedDate,::openEditEventDialog)
+            )
         }
 
         binding.floatingButton.setOnClickListener {
