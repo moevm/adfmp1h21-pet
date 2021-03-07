@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.event.date_picker
+package abdulmanov.eduard.pets.presentation.event.dialogs.date_picker
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.BottomDialogDatePickerBinding
@@ -7,8 +7,8 @@ import abdulmanov.eduard.pets.presentation._common.extensions.dpToPx
 import abdulmanov.eduard.pets.presentation._common.extensions.getDaysOfWeekFromLocale
 import abdulmanov.eduard.pets.presentation._common.extensions.getMonthsForCalendar
 import abdulmanov.eduard.pets.presentation._common.extensions.getScreenSize
-import abdulmanov.eduard.pets.presentation.event.date_picker.helpers.DatePickerDayBinder
-import abdulmanov.eduard.pets.presentation.event.date_picker.helpers.DatePickerMonthHeaderBinder
+import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.helpers.DatePickerDayBinder
+import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.helpers.DatePickerMonthHeaderBinder
 import android.content.Context
 import android.os.Bundle
 import android.view.View

@@ -1,11 +1,11 @@
-package abdulmanov.eduard.pets.presentation.options.change_pet
+package abdulmanov.eduard.pets.presentation.options.dialogs.change_pet
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.BottomDialogChangePetBinding
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseBottomSheetDialogFragment
-import abdulmanov.eduard.pets.presentation.options.change_pet.adapters.AddDelegateAdapter
-import abdulmanov.eduard.pets.presentation.options.change_pet.adapters.PetsDelegateAdapter
+import abdulmanov.eduard.pets.presentation.options.dialogs.change_pet.adapters.AddDelegateAdapter
+import abdulmanov.eduard.pets.presentation.options.dialogs.change_pet.adapters.PetsDelegateAdapter
 import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
 import android.content.Context
 import android.os.Bundle

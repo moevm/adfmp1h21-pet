@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.event.date_picker
+package abdulmanov.eduard.pets.presentation.event.dialogs.date_picker
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

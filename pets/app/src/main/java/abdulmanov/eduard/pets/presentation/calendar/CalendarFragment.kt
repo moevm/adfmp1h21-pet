@@ -8,6 +8,7 @@ import abdulmanov.eduard.pets.presentation._common.extensions.getDaysOfWeekFromL
 import abdulmanov.eduard.pets.presentation._common.extensions.getMonthsForCalendar
 import abdulmanov.eduard.pets.presentation._common.extensions.getScreenSize
 import abdulmanov.eduard.pets.presentation.calendar.adapters.EventsDelegateAdapter
+import abdulmanov.eduard.pets.presentation.calendar.dialogs.edit_event.EditEventBottomSheetDialog
 import abdulmanov.eduard.pets.presentation.calendar.helpers.CalendarDayBinder
 import abdulmanov.eduard.pets.presentation.calendar.helpers.CalendarMonthHeaderBinder
 import abdulmanov.eduard.pets.presentation.event.model.EventPresentationModel
@@ -26,7 +27,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
+class CalendarFragment : BaseFragment<FragmentCalendarBinding>(), EditEventBottomSheetDialog.EditEventUpdate {
 
     private val viewModel by initViewModel<CalendarViewModel>()
 
@@ -61,6 +62,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
         return true
     }
 
+    override fun onUpdate() {
+        viewModel.refresh()
+    }
+
     private fun initUI() {
         binding.toolbar.run {
             inflateMenu(R.menu.menu_calendar)
@@ -80,7 +85,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
         binding.eventsRecyclerView.run {
             layoutManager = LinearLayoutManager(context)
-            adapter = CompositeDelegateAdapter(EventsDelegateAdapter({},{}))
+            adapter = CompositeDelegateAdapter(EventsDelegateAdapter({},::openEditEventDialog))
         }
 
         binding.floatingButton.setOnClickListener {
@@ -101,6 +106,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
             binding.calendarView.scrollToDate(date)
             viewModel.getEventsForSelectedDate(date)
         }
+    }
+
+    private fun openEditEventDialog(event: EventPresentationModel){
+        val dialog = EditEventBottomSheetDialog.newInstance(event)
+        dialog.show(childFragmentManager, EditEventBottomSheetDialog.TAG)
     }
 
     private fun setCurrentPet(pet: PetPresentationModel){

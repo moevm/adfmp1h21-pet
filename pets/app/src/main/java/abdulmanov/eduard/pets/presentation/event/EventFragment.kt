@@ -8,8 +8,8 @@ import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
-import abdulmanov.eduard.pets.presentation.event.date_picker.DatePickerBottomSheetDialog
-import abdulmanov.eduard.pets.presentation.event.time_picker.TimePickerBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.DatePickerBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.event.dialogs.time_picker.TimePickerBottomSheetDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -57,7 +57,7 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
 
     private fun initUI(){
         binding.toolbar.run {
-            setTitle(R.string.event_new_title)
+            setTitle(if (eventId == -1) R.string.event_new_title else R.string.event_edit_title)
             setNavigationIcon(R.drawable.ic_arrow_back)
             setNavigationOnClickListener { viewModel.onBackCommandClick() }
         }

@@ -1,4 +1,4 @@
-package abdulmanov.eduard.pets.presentation.event.date_picker.helpers
+package abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.helpers
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.ItemDatePickerCalendarDayBinding

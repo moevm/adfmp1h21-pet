@@ -41,6 +41,8 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
+    fun refresh() = getEventsForSelectedDate(_selectedDate.value!!)
+
     fun getCurrentPet(){
         petsInteractor.getCurrentPet()
             .map(PetPresentationModel::fromDomain)

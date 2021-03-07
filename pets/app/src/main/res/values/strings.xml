@@ -26,6 +26,10 @@
     <string name="event_button_create">Создать</string>
     <string name="event_button_save">Сохранить</string>
 
+    <!--edit_event-->
+    <string name="edit_event_edit">Редактировать</string>
+    <string name="edit_event_delete">Удалить</string>
+
     <!--options-->
     <string name="options_toolbar_title">Параметры</string>
     <string name="options_edit_pet">Редактировать питомца</string>

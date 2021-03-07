@@ -3,7 +3,8 @@ package abdulmanov.eduard.pets.dagger.modules
 import abdulmanov.eduard.pets.dagger.annotations.ViewModelKey
 import abdulmanov.eduard.pets.presentation._common.viewmodel.ViewModelFactory
 import abdulmanov.eduard.pets.presentation.calendar.CalendarViewModel
-import abdulmanov.eduard.pets.presentation.options.change_pet.ChangePetViewModel
+import abdulmanov.eduard.pets.presentation.calendar.dialogs.edit_event.EditEventViewModel
+import abdulmanov.eduard.pets.presentation.options.dialogs.change_pet.ChangePetViewModel
 import abdulmanov.eduard.pets.presentation.event.EventViewModel
 import abdulmanov.eduard.pets.presentation.main.MainViewModel
 import abdulmanov.eduard.pets.presentation.options.OptionsViewModel
@@ -49,4 +50,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EventViewModel::class)
     abstract fun bindEventViewModel(viewModel: EventViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditEventViewModel::class)
+    abstract fun bindEditEventViewModel(viewModel: EditEventViewModel): ViewModel
 }
