@@ -3,24 +3,31 @@ package abdulmanov.eduard.pets.presentation.event
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.FragmentEventBinding
 import abdulmanov.eduard.pets.domain.models.event.RepeatMode
+import abdulmanov.eduard.pets.domain.models.pet.Sex
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
+import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
 import abdulmanov.eduard.pets.presentation.date_picker.DatePickerBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.pet.PetFragment
 import abdulmanov.eduard.pets.presentation.time_picker.TimePickerBottomSheetDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 
 class EventFragment : BaseFragment<FragmentEventBinding>(),
     TimePickerBottomSheetDialog.TimePickerCallback,
     DatePickerBottomSheetDialog.DatePickerCallback {
 
     private val viewModel by initViewModel<EventViewModel>()
+
+    private val eventId: Int by lazy { requireArguments().getInt(ARG_ID_EVENT) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -31,6 +38,13 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
+
+        viewModel.showApplyProgress.observe(viewLifecycleOwner, Observer(binding.applyProgressButton::showProgress))
+        viewModel.initializationFieldsEvent.observe(viewLifecycleOwner, { initFields() })
+
+        if (savedInstanceState == null) {
+            viewModel.setEventOrDefault(eventId)
+        }
     }
 
     override fun onChangeDate(date: String, viewId: Int) {
@@ -52,12 +66,23 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
             setNavigationOnClickListener { viewModel.onBackCommandClick() }
         }
 
-        val repeatModeItems = requireContext().resources.getStringArray(R.array.repeat_mode).toList()
-        binding.repeatModeTextView.initSpinner(repeatModeItems)
-        binding.repeatModeTextView.addTextChangedListener {
-            val index = repeatModeItems.indexOf(it.toString())
-            val repeatMode = RepeatMode.values()[index]
-            binding.dateTextInputLayout.isVisible = repeatMode.isNeedDate
+        binding.repeatModeTextView.initSpinner(requireContext().resources.getStringArray(R.array.repeat_mode).toList())
+
+        binding.nameTextInputEditText.bind { viewModel.event?.name = it }
+        binding.dateTextInputEditText.bind { viewModel.event?.date = it }
+        binding.timeTextInputEditText.bind { viewModel.event?.time = it }
+        binding.repeatModeTextView.bind(
+            {
+                viewModel.event?.repeatMode = it as RepeatMode
+                binding.dateTextInputLayout.isVisible = it.isNeedDate
+            },
+            {
+                RepeatMode.values()[it]
+            }
+        )
+        binding.notificationSwitch.bind {
+            viewModel.event?.isNotification = it
+            binding.timeTextInputLayout.isVisible = it
         }
 
         binding.dateTextInputEditText.setOnClickListener {
@@ -68,8 +93,9 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
             openTimePicker()
         }
 
-        binding.notificationSwitch.setOnCheckedChangeListener { _, checked ->
-            binding.timeTextInputLayout.isVisible = checked
+        binding.applyProgressButton.setText(if (eventId == -1) R.string.event_button_create else R.string.event_button_save)
+        binding.applyProgressButton.setOnClickListener {
+            viewModel.createOrUpdateEvent()
         }
     }
 
@@ -85,6 +111,18 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
         val viewId = binding.timeTextInputEditText.id
         val dialog = TimePickerBottomSheetDialog.newInstance(time, viewId)
         dialog.show(childFragmentManager, TimePickerBottomSheetDialog.TAG)
+    }
+
+    private fun initFields() {
+        val event = viewModel.event!!
+
+        binding.nameTextInputEditText.setText(event.name)
+        binding.dateTextInputEditText.setText(event.date)
+        binding.notificationSwitch.isChecked = event.isNotification
+        binding.timeTextInputEditText.setText(event.time)
+
+        val repeatMode = binding.repeatModeTextView.adapter.getItem(event.repeatMode.value) as String
+        binding.repeatModeTextView.setText(repeatMode,false)
     }
 
     companion object {

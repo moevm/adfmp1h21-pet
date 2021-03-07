@@ -1,6 +1,7 @@
 package abdulmanov.eduard.pets.dagger.modules
 
 import abdulmanov.eduard.pets.data.database.AppDatabase
+import abdulmanov.eduard.pets.data.database.dao.EventDao
 import abdulmanov.eduard.pets.data.database.dao.PetDao
 import android.content.Context
 import dagger.Module
@@ -20,5 +21,11 @@ class DatabaseModule {
     @Provides
     fun providePetDao(appDatabase: AppDatabase): PetDao {
         return appDatabase.petDao
+    }
+
+    @Singleton
+    @Provides
+    fun provideEventDao(appDatabase: AppDatabase): EventDao {
+        return appDatabase.eventDao
     }
 }

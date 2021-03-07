@@ -12,11 +12,26 @@ import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 fun EditText.bind(action: (String) -> Unit) = addTextChangedListener { action(it.toString()) }
 
 fun RadioGroup.bind(action: (Any) -> Unit, map: (Int) -> Any) = setOnCheckedChangeListener { _, checkedId ->
     action(map(checkedId))
+}
+
+fun SwitchMaterial.bind(action: (Boolean) -> Unit) = setOnCheckedChangeListener { _, checked -> action(checked) }
+
+fun AutoCompleteTextView.bind(action: (Any) -> Unit, map: (Int) -> Any) = addTextChangedListener {
+    var index: Int = -1
+    for(i in 0 until adapter.count){
+        val item = adapter.getItem(i) as String
+        if(item == it.toString()){
+            index = i
+            break
+        }
+    }
+    action(map(index))
 }
 
 @SuppressLint("ClickableViewAccessibility")

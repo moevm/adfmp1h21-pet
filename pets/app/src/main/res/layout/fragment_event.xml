@@ -153,6 +153,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <abdulmanov.eduard.pets.presentation._common.view.ProgressButton
+                android:id="@+id/applyProgressButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
