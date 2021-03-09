@@ -67,15 +67,7 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
         binding.nameTextInputEditText.bind { viewModel.event?.name = it }
         binding.dateTextInputEditText.bind { viewModel.event?.date = it }
         binding.timeTextInputEditText.bind { viewModel.event?.time = it }
-        binding.repeatModeTextView.bind(
-            {
-                viewModel.event?.repeatMode = it as RepeatMode
-                binding.dateTextInputLayout.isVisible = it.isNeedDate
-            },
-            {
-                RepeatMode.values()[it]
-            }
-        )
+        binding.repeatModeTextView.bind({ viewModel.event?.repeatMode = it as RepeatMode }, { RepeatMode.values()[it] })
         binding.notificationSwitch.bind {
             viewModel.event?.isNotification = it
             binding.timeTextInputLayout.isVisible = it

@@ -17,7 +17,8 @@ import androidx.room.PrimaryKey
         ForeignKey(
             entity = PetDbModel::class,
             parentColumns = [PetDbModel.COLUMN_ID],
-            childColumns = [EventDbModel.COLUMN_ID_PET]
+            childColumns = [EventDbModel.COLUMN_ID_PET],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )

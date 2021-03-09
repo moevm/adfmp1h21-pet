@@ -6,6 +6,21 @@
         <item>Птица</item>
     </array>
 
+    <array name="months_nominative">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </array>
+
     <array name="repeat_mode">
         <item>Не повторять</item>
         <item>Каждый день</item>

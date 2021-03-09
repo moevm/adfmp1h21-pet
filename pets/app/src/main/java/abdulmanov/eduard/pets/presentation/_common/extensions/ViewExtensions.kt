@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Point
+import android.net.Uri
 import android.os.Build
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -13,6 +14,8 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 fun EditText.bind(action: (String) -> Unit) = addTextChangedListener { action(it.toString()) }
 
@@ -58,5 +61,23 @@ fun Context.getScreenSize(): Point {
     }
 }
 
-
 fun Int.dpToPx() = this * Resources.getSystem().displayMetrics.density
+
+fun ImageView.loadImg(
+    imageUri: String?,
+    placeholderRes: Int? = R.drawable.ic_photo_placeholder,
+    errorRes: Int? = R.drawable.ic_photo_placeholder,
+) {
+    if (imageUri.isNullOrEmpty()) {
+        this.setImageResource(errorRes ?: 0)
+        return
+    }
+
+    Picasso.get().load(Uri.parse(imageUri)).apply {
+        fit()
+        centerCrop()
+        placeholderRes?.let { placeholder(it) }
+        errorRes?.let { error(it) }
+        into(this@loadImg)
+    }
+}

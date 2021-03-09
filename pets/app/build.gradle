@@ -59,6 +59,7 @@ dependencies {
     implementation "com.github.kizitonwose:CalendarView:$calendarViewVersion"
     implementation "com.leinardi.android:speed-dial:$speedDialVersion"
     implementation "com.github.liverm0r:delegateadapters:$delegateAdapterVersion"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
 
     //singleLiveEvent
     implementation "com.github.hadilq.liveevent:liveevent:$liveEventVersion"

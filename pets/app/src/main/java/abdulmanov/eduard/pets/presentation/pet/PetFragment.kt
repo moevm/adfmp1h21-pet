@@ -8,6 +8,7 @@ import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
+import abdulmanov.eduard.pets.presentation._common.extensions.loadImg
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -58,7 +59,7 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
 
         binding.typeTextView.initSpinner(requireContext().resources.getStringArray(R.array.pets_type).toList())
         binding.yearTextView.initSpinner(BirthDate.getYears())
-        binding.monthTextView.initSpinner(BirthDate.getMonths())
+        binding.monthTextView.initSpinner(requireContext().resources.getStringArray(R.array.months_nominative).toList())
 
         binding.nameTextInputEditText.bind { viewModel.pet?.name = it }
         binding.typeTextView.bind { viewModel.pet?.type = it }
@@ -84,7 +85,7 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
     }
 
     private fun initFields() {
-        setAvatar(viewModel.pet!!.avatar)
+        binding.avatarImageView.loadImg(viewModel.pet!!.avatar)
 
         binding.nameTextInputEditText.setText(viewModel.pet!!.name)
         binding.typeTextView.setText(viewModel.pet!!.type, false)
@@ -105,15 +106,8 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
 
     private fun onImageResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
-            viewModel.pet?.avatar = result.data!!.data.toString()
-            setAvatar(viewModel.pet!!.avatar)
-        }
-    }
-
-    private fun setAvatar(avatar: String?) {
-        if (!avatar.isNullOrEmpty()) {
-            val uri = Uri.parse(avatar)
-            binding.avatarImageView.setImageURI(uri)
+            viewModel.saveImageToInternalStorage(result.data!!.data!!)
+            binding.avatarImageView.loadImg(result.data!!.data!!.toString())
         }
     }
 

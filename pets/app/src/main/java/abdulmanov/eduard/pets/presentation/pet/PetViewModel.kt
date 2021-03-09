@@ -2,8 +2,11 @@ package abdulmanov.eduard.pets.presentation.pet
 
 import abdulmanov.eduard.pets.domain.interactors.PetsInteractor
 import abdulmanov.eduard.pets.presentation.Screens
+import abdulmanov.eduard.pets.presentation._common.FilesProvider
 import abdulmanov.eduard.pets.presentation._common.viewmodel.BaseViewModel
 import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.terrakok.cicerone.Router
@@ -14,6 +17,7 @@ import javax.inject.Inject
 
 class PetViewModel @Inject constructor(
     private val router: Router,
+    private val filesProvider: FilesProvider,
     private val petsInteractor: PetsInteractor
 ) : BaseViewModel() {
 
@@ -35,6 +39,22 @@ class PetViewModel @Inject constructor(
         getSinglePet(petId).safeSubscribe {
             this.pet = it
             _initializationFieldsEvent.value = Unit
+        }
+    }
+
+    fun saveImageToInternalStorage(uri: Uri){
+        Single.zip(
+            filesProvider.getInputStreamForImageInGallery(uri),
+            filesProvider.getNewFileFromCache(),
+            { input, file ->
+                file.outputStream().use { output ->
+                    output.write(input.readBytes())
+                }
+                file
+            }
+        ).safeSubscribe {
+            pet!!.avatar = Uri.fromFile(it).toString()
+            Log.d("FuckFuck", pet!!.avatar)
         }
     }
 
@@ -89,4 +109,5 @@ class PetViewModel @Inject constructor(
             petsInteractor.getPetById(petId).map(PetPresentationModel::fromDomain)
         }
     }
+
 }

@@ -49,6 +49,7 @@ ext {
     calendarViewVersion = "1.0.1"
     speedDialVersion = "3.1.1"
     delegateAdapterVersion = "4.0"
+    picassoVersion = "2.71828"
     ciceroneVersion = "6.4"
     daggerVersion = "2.29.1"
     liveEventVersion = "1.2.0"

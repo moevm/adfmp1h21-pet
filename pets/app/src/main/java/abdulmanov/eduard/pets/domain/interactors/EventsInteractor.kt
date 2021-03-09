@@ -35,7 +35,7 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
                             it.date == date.toString()
                         }
                         RepeatMode.REPEAT_EVERY_DAY -> {
-                            true
+                            LocalDate.parse(it.date).isBefore(date) || it.date == date.toString()
                         }
                         RepeatMode.REPEAT_EVERY_WEEK -> {
                             val dateEvent = LocalDate.parse(it.date)

@@ -7,6 +7,7 @@ import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.getDaysOfWeekFromLocale
 import abdulmanov.eduard.pets.presentation._common.extensions.getMonthsForCalendar
 import abdulmanov.eduard.pets.presentation._common.extensions.getScreenSize
+import abdulmanov.eduard.pets.presentation._common.extensions.loadImg
 import abdulmanov.eduard.pets.presentation.calendar.adapters.EventsDelegateAdapter
 import abdulmanov.eduard.pets.presentation.calendar.dialogs.edit_event.EditEventBottomSheetDialog
 import abdulmanov.eduard.pets.presentation.calendar.helpers.CalendarDayBinder
@@ -116,10 +117,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(), EditEventBotto
     }
 
     private fun setCurrentPet(pet: PetPresentationModel){
-        if(pet.avatar.isNotEmpty()){
-            val uri = Uri.parse(pet.avatar)
-            binding.avatarImageView.setImageURI(uri)
-        }
+        binding.avatarImageView.loadImg(pet.avatar)
         binding.titleTextView.text = pet.name
     }
 

@@ -1,6 +1,5 @@
 package abdulmanov.eduard.pets.domain.models.pet
 
-import java.text.DateFormatSymbols
 import java.time.LocalDate
 
 data class BirthDate(
@@ -25,10 +24,6 @@ data class BirthDate(
             val startDate = dateNow.minusYears(20)
 
             return (startDate.year..dateNow.year).map { it.toString() }
-        }
-
-        fun getMonths(): List<String> {
-            return DateFormatSymbols().months.toList()
         }
     }
 }
