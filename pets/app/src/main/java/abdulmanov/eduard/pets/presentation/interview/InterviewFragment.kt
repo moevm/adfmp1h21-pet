@@ -2,20 +2,26 @@ package abdulmanov.eduard.pets.presentation.interview
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.FragmentInterviewBinding
+import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
+import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
-
-import abdulmanov.eduard.pets.presentation.main.MainActivity
-
-import android.widget.RatingBar
-import android.widget.RatingBar.OnRatingBarChangeListener
+import android.content.Context
 
 
 class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
+
+    private val viewModel by initViewModel<InterviewViewModel>()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as App).appComponent.inject(this)
+        addOnBackPressedCallback(viewModel::onBackCommandClick)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
@@ -33,9 +39,7 @@ class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
         binding.toolbar.run {
             setTitle(R.string.interview_toolbar_title)
             setNavigationIcon(R.drawable.ic_arrow_back)
-            setNavigationOnClickListener {
-                // Todo: Add jump back
-            }
+            setNavigationOnClickListener { viewModel.onBackCommandClick() }
         }
 
         binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->

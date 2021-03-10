@@ -6,6 +6,7 @@ import abdulmanov.eduard.pets.presentation.calendar.CalendarViewModel
 import abdulmanov.eduard.pets.presentation.calendar.dialogs.edit_event.EditEventViewModel
 import abdulmanov.eduard.pets.presentation.options.dialogs.change_pet.ChangePetViewModel
 import abdulmanov.eduard.pets.presentation.event.EventViewModel
+import abdulmanov.eduard.pets.presentation.interview.InterviewViewModel
 import abdulmanov.eduard.pets.presentation.main.MainViewModel
 import abdulmanov.eduard.pets.presentation.options.OptionsViewModel
 import abdulmanov.eduard.pets.presentation.pet.PetViewModel
@@ -55,4 +56,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EditEventViewModel::class)
     abstract fun bindEditEventViewModel(viewModel: EditEventViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InterviewViewModel::class)
+    abstract fun bindInterviewViewModel(viewModel: InterviewViewModel): ViewModel
 }
