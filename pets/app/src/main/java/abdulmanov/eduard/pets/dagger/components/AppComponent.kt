@@ -9,6 +9,7 @@ import abdulmanov.eduard.pets.presentation.options.dialogs.change_pet.ChangePetB
 import abdulmanov.eduard.pets.presentation.event.EventFragment
 import abdulmanov.eduard.pets.presentation.interview.InterviewFragment
 import abdulmanov.eduard.pets.presentation.pet.PetFragment
+import abdulmanov.eduard.pets.presentation.statistic.StatisticFragment
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
@@ -47,4 +48,6 @@ interface AppComponent {
     fun inject(editEventBottomSheetDialog: EditEventBottomSheetDialog)
 
     fun inject(interviewFragment: InterviewFragment)
+
+    fun inject(statisticFragment: StatisticFragment)
 }

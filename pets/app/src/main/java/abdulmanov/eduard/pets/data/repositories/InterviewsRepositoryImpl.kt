@@ -24,11 +24,6 @@ class InterviewsRepositoryImpl(
             .map(InterviewDbModel::toDomain)
     }
 
-    override fun getInterviewById(id: Int): Single<Interview> {
-        return interviewDao.getInterviewById(id)
-            .map(InterviewDbModel::toDomain)
-    }
-
     override fun createInterview(interview: Interview): Single<Interview> {
         val dbModel = InterviewDbModel.fromDomain(interview, sharedPreferences.idCurrentPet)
 

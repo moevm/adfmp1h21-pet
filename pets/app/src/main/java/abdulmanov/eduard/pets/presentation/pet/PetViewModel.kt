@@ -52,10 +52,7 @@ class PetViewModel @Inject constructor(
                 }
                 file
             }
-        ).safeSubscribe {
-            pet!!.avatar = Uri.fromFile(it).toString()
-            Log.d("FuckFuck", pet!!.avatar)
-        }
+        ).safeSubscribe { pet!!.avatar = Uri.fromFile(it).toString() }
     }
 
     fun createOrUpdatePet() {

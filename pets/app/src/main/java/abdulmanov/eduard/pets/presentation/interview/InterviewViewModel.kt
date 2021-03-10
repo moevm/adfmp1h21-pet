@@ -26,7 +26,6 @@ class InterviewViewModel @Inject constructor(
     fun onBackCommandClick() = router.exit()
 
     fun getInterviewForDate(date: LocalDate){
-        Log.d("FuckFuck","$date")
         interviewsInteractor.getInterviewByDate(date)
             .map(InterviewPresentationModel::fromDomain)
             .safeSubscribe(
@@ -40,9 +39,16 @@ class InterviewViewModel @Inject constructor(
     }
 
     fun createOrUpdateInterview(rating: Int){
-        getSingeCreateOrUpdate(rating)
-            .map(InterviewPresentationModel::fromDomain)
-            .safeSubscribe { _currentInterview.value = it }
+        if(rating >= 1) {
+            getSingeCreateOrUpdate(rating)
+                .map(InterviewPresentationModel::fromDomain)
+                .safeSubscribe { _currentInterview.value = it }
+        }else if(!_currentInterview.value!!.isNew()){
+            interviewsInteractor.deleteInterview(_currentInterview.value!!.id)
+                .addDispatchers()
+                .subscribe()
+                .connect()
+        }
     }
 
     private fun getSingeCreateOrUpdate(rating: Int): Single<Interview> {

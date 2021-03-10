@@ -38,8 +38,8 @@ fun AutoCompleteTextView.bind(action: (Any) -> Unit, map: (Int) -> Any) = addTex
 }
 
 @SuppressLint("ClickableViewAccessibility")
-fun AutoCompleteTextView.initSpinner(items: List<String>) {
-    setAdapter(ArrayAdapter(context, R.layout.item_spinner, items))
+fun AutoCompleteTextView.initSpinner(items: List<String>, layout: Int = R.layout.item_spinner) {
+    setAdapter(ArrayAdapter(context, layout, items))
     setOnTouchListener { _, _ -> return@setOnTouchListener true }
 }
 

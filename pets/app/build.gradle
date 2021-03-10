@@ -60,6 +60,7 @@ dependencies {
     implementation "com.leinardi.android:speed-dial:$speedDialVersion"
     implementation "com.github.liverm0r:delegateadapters:$delegateAdapterVersion"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.github.PhilJay:MPAndroidChart:$chartVersion"
 
     //singleLiveEvent
     implementation "com.github.hadilq.liveevent:liveevent:$liveEventVersion"
