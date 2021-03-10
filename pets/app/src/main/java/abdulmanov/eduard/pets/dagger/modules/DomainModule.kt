@@ -1,8 +1,10 @@
 package abdulmanov.eduard.pets.dagger.modules
 
 import abdulmanov.eduard.pets.domain.interactors.EventsInteractor
+import abdulmanov.eduard.pets.domain.interactors.InterviewsInteractor
 import abdulmanov.eduard.pets.domain.interactors.PetsInteractor
 import abdulmanov.eduard.pets.domain.repositories.EventsRepository
+import abdulmanov.eduard.pets.domain.repositories.InterviewsRepository
 import abdulmanov.eduard.pets.domain.repositories.PetsRepository
 import dagger.Module
 import dagger.Provides
@@ -21,5 +23,11 @@ class DomainModule {
     @Provides
     fun provideEventsInteractor(eventsRepository: EventsRepository): EventsInteractor {
         return EventsInteractor(eventsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideInterviewsInteractor(interviewsRepository: InterviewsRepository): InterviewsInteractor {
+        return InterviewsInteractor(interviewsRepository)
     }
 }
