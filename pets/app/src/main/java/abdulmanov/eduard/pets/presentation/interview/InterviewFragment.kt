@@ -2,14 +2,21 @@ package abdulmanov.eduard.pets.presentation.interview
 
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.FragmentInterviewBinding
+import abdulmanov.eduard.pets.domain.models.interview.Interview
 import abdulmanov.eduard.pets.presentation.App
 import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
+import abdulmanov.eduard.pets.presentation._common.extensions.bind
+import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
+import abdulmanov.eduard.pets.presentation.interview.model.InterviewPresentationModel
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.Observer
+import java.time.LocalDate
 
 
 class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
@@ -25,25 +32,34 @@ class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
+
+        viewModel.currentInterview.observe(viewLifecycleOwner, Observer(::setInterview))
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initUI(){
-        val items = requireContext().resources.getStringArray(R.array.interview_type_day).toList()
-        binding.dayTypeTextView.setAdapter(ArrayAdapter(requireContext(), R.layout.item_spinner, items))
-        binding.dayTypeTextView.setOnTouchListener { view, motionEvent ->
-            return@setOnTouchListener true
-        }
-        binding.dayTypeTextView.setText(items[0], false)
-
         binding.toolbar.run {
             setTitle(R.string.interview_toolbar_title)
             setNavigationIcon(R.drawable.ic_arrow_back)
             setNavigationOnClickListener { viewModel.onBackCommandClick() }
         }
 
-        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-            // Todo: Add rating pet mood
+        val items = requireContext().resources.getStringArray(R.array.interview_type_day).toList()
+        binding.dayTypeTextView.initSpinner(items)
+        binding.dayTypeTextView.bind {
+            val index = items.indexOf(it)
+            val dateNow = LocalDate.now()
+            val currentSelectDate = dateNow.minusDays(index.toLong())
+            viewModel.getInterviewForDate(currentSelectDate)
+        }
+        binding.dayTypeTextView.setText(items[0], false)
+    }
+
+    private fun setInterview(interview: InterviewPresentationModel){
+        binding.ratingBar.setOnRatingBarChangeListener { _, _, _ -> }
+        binding.ratingBar.rating = interview.rating.toFloat()
+        binding.ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
+            viewModel.createOrUpdateInterview(rating.toInt())
         }
     }
 

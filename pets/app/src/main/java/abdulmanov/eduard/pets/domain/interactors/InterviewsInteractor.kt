@@ -8,15 +8,19 @@ import java.time.LocalDate
 
 class InterviewsInteractor(private val interviewsRepository: InterviewsRepository) {
 
+    fun getInterviewByDate(date: LocalDate): Single<Interview>{
+        return interviewsRepository.getInterviewByDate(date)
+    }
+
     fun getInterviewById(id: Int): Single<Interview>{
         return interviewsRepository.getInterviewById(id)
     }
 
-    fun createInterview(interview: Interview): Completable {
+    fun createInterview(interview: Interview): Single<Interview> {
         return interviewsRepository.createInterview(interview)
     }
 
-    fun updateInterview(interview: Interview): Completable {
+    fun updateInterview(interview: Interview): Single<Interview> {
         return interviewsRepository.updateInterview(interview)
     }
 
