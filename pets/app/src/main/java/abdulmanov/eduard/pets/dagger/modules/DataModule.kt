@@ -1,11 +1,14 @@
 package abdulmanov.eduard.pets.dagger.modules
 
 import abdulmanov.eduard.pets.data.database.dao.EventDao
+import abdulmanov.eduard.pets.data.database.dao.InterviewDao
 import abdulmanov.eduard.pets.data.database.dao.PetDao
 import abdulmanov.eduard.pets.data.repositories.EventsRepositoryImpl
+import abdulmanov.eduard.pets.data.repositories.InterviewsRepositoryImpl
 import abdulmanov.eduard.pets.data.repositories.PetsRepositoryImpl
 import abdulmanov.eduard.pets.data.sharedpreferences.PetsSharedPreferences
 import abdulmanov.eduard.pets.domain.repositories.EventsRepository
+import abdulmanov.eduard.pets.domain.repositories.InterviewsRepository
 import abdulmanov.eduard.pets.domain.repositories.PetsRepository
 import dagger.Module
 import dagger.Provides
@@ -24,5 +27,11 @@ class DataModule {
     @Provides
     fun provideEventsRepository(eventDao: EventDao, petsSharedPreferences: PetsSharedPreferences): EventsRepository {
         return EventsRepositoryImpl(eventDao, petsSharedPreferences)
+    }
+
+    @Singleton
+    @Provides
+    fun provideInterviewsRepository(interviewDao: InterviewDao, petsSharedPreferences: PetsSharedPreferences): InterviewsRepository {
+        return InterviewsRepositoryImpl(interviewDao, petsSharedPreferences)
     }
 }

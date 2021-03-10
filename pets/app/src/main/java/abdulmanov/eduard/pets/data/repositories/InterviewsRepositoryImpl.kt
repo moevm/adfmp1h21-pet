@@ -1,0 +1,42 @@
+package abdulmanov.eduard.pets.data.repositories
+
+import abdulmanov.eduard.pets.data.database.dao.InterviewDao
+import abdulmanov.eduard.pets.data.database.models.InterviewDbModel
+import abdulmanov.eduard.pets.data.sharedpreferences.PetsSharedPreferences
+import abdulmanov.eduard.pets.domain.models.interview.Interview
+import abdulmanov.eduard.pets.domain.repositories.InterviewsRepository
+import io.reactivex.Completable
+import io.reactivex.Single
+
+class InterviewsRepositoryImpl(
+    private val interviewDao: InterviewDao,
+    private val sharedPreferences: PetsSharedPreferences
+): InterviewsRepository {
+
+    override fun getInterviews(): Single<List<Interview>> {
+        return interviewDao.getInterviews(sharedPreferences.idCurrentPet)
+            .map(InterviewDbModel::toDomain)
+    }
+
+    override fun getInterviewById(id: Int): Single<Interview> {
+        return interviewDao.getInterviewById(id)
+            .map(InterviewDbModel::toDomain)
+    }
+
+    override fun createInterview(interview: Interview): Completable {
+        val dbModel = InterviewDbModel.fromDomain(interview, sharedPreferences.idCurrentPet)
+
+        return interviewDao.insertInterview(dbModel)
+            .ignoreElement()
+    }
+
+    override fun updateInterview(interview: Interview): Completable {
+        val dbModel = InterviewDbModel.fromDomain(interview)
+
+        return interviewDao.updateInterview(dbModel)
+    }
+
+    override fun deleteInterview(interviewId: Int): Completable {
+        return interviewDao.deleteById(interviewId)
+    }
+}
