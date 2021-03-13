@@ -9,7 +9,7 @@ on:
 jobs:
   Unit-test:
     name: Run unit tests on PR in main
-    runs-on: ununtu-20.04
+    runs-on: Ununtu-18.04
     
     steps:
       - uses: actions/checkout@v2
