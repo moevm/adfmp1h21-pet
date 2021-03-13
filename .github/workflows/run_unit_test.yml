@@ -19,5 +19,7 @@ jobs:
           java-version: 1.8
 
       - name: Unit tests
-        run: bash ./gradlew test --stacktrace
+        run: |
+          cd pets
+          bash ./gradlew test --stacktrace
 
