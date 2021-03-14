@@ -39,7 +39,8 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
                         }
                         RepeatMode.REPEAT_EVERY_WEEK -> {
                             val dateEvent = LocalDate.parse(it.date)
-                            date.dayOfWeek.value == dateEvent.dayOfWeek.value
+                            (dateEvent.isBefore(date) || it.date == date.toString())
+                                && date.dayOfWeek.value == dateEvent.dayOfWeek.value
                         }
                         RepeatMode.REPEAT_EVERY_MONTH -> {
                             //TODO корнер кейсы
