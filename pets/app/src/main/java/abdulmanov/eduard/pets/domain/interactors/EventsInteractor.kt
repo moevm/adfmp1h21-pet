@@ -45,7 +45,8 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
                         RepeatMode.REPEAT_EVERY_MONTH -> {
                             //TODO корнер кейсы
                             val dateEvent = LocalDate.parse(it.date)
-                            date.dayOfMonth == dateEvent.dayOfMonth
+                            (dateEvent.isBefore(date) || it.date == date.toString())
+                                && date.dayOfMonth == dateEvent.dayOfMonth
                         }
                     }
                 }
