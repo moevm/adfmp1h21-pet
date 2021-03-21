@@ -11,6 +11,7 @@ import abdulmanov.eduard.pets.presentation.interview.InterviewFragment
 import abdulmanov.eduard.pets.presentation.pet.PetFragment
 import abdulmanov.eduard.pets.presentation.statistic.StatisticFragment
 import android.content.Context
+import androidx.work.WorkerFactory
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -23,7 +24,8 @@ import javax.inject.Singleton
         DataModule::class,
         DomainModule::class,
         NavigationModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        WorkerModule::class
     ]
 )
 interface AppComponent {
@@ -50,4 +52,6 @@ interface AppComponent {
     fun inject(interviewFragment: InterviewFragment)
 
     fun inject(statisticFragment: StatisticFragment)
+
+    fun getWorkerFactory(): WorkerFactory
 }
