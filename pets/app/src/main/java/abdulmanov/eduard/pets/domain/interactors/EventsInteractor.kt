@@ -10,15 +10,15 @@ import java.time.LocalDate
 
 class EventsInteractor(private val eventsRepository: EventsRepository) {
 
-    fun getEventById(id: Int): Single<Event>{
+    fun getEventById(id: Int): Single<Event> {
         return eventsRepository.getEventById(id)
     }
 
-    fun createEvent(event: Event): Completable {
+    fun createEvent(event: Event): Single<Event> {
         return eventsRepository.createEvent(event)
     }
 
-    fun updateEvent(event: Event): Completable {
+    fun updateEvent(event: Event): Single<Event> {
         return eventsRepository.updateEvent(event)
     }
 
@@ -58,5 +58,6 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
             if(isDone) add(date.toString()) else remove(date.toString())
         }
         return eventsRepository.updateEvent(event.copy(doneDates = updatedDoneDates))
+            .ignoreElement()
     }
 }

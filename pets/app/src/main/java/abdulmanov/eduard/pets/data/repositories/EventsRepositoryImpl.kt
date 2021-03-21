@@ -23,17 +23,20 @@ class EventsRepositoryImpl(
             .map(EventDbModel::toDomain)
     }
 
-    override fun createEvent(event: Event): Completable {
+    override fun createEvent(event: Event): Single<Event> {
         val dbModel = EventDbModel.fromDomain(event, sharedPreferences.idCurrentPet)
 
         return eventDao.insertEvent(dbModel)
-            .ignoreElement()
+            .flatMap { eventDao.getEventById(it.toInt()) }
+            .map(EventDbModel::toDomain)
     }
 
-    override fun updateEvent(event: Event): Completable {
+    override fun updateEvent(event: Event): Single<Event> {
         val dbModel = EventDbModel.fromDomain(event)
 
         return eventDao.updateEvent(dbModel)
+            .andThen(eventDao.getEventById(event.id))
+            .map(EventDbModel::toDomain)
     }
 
     override fun deleteEvent(eventId: Int): Completable {

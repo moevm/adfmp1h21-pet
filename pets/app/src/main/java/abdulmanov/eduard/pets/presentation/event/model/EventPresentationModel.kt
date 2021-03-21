@@ -7,6 +7,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Parcelize
 data class EventPresentationModel(
@@ -26,6 +27,18 @@ data class EventPresentationModel(
     companion object {
 
         private val DATE_FORMATTER_PRESENTER = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy")
+
+        fun getCalendar(event: EventPresentationModel): Calendar {
+            val date = LocalDate.parse(event.date, DATE_FORMATTER_PRESENTER).toString()
+
+            return Calendar.getInstance().apply {
+                set(Calendar.YEAR, date.split("-")[0].toInt())
+                set(Calendar.MONTH, date.split("-")[1].toInt() - 1)
+                set(Calendar.DAY_OF_MONTH, date.split("-")[2].toInt())
+                set(Calendar.HOUR_OF_DAY, event.time.split(":")[0].toInt())
+                set(Calendar.MINUTE, event.time.split(":")[1].toInt())
+            }
+        }
 
         fun fromDomain(events: List<Event>, currentDate: LocalDate): List<EventPresentationModel> {
             return events.map { event ->

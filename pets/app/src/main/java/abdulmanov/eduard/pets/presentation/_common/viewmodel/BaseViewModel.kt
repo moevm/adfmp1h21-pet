@@ -43,6 +43,11 @@ abstract class BaseViewModel() : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    protected fun <T> Single<T>.addDispatchers(): Single<T> {
+        return subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     protected fun Disposable.connect() {
         compositeDisposable.add(this)
     }
