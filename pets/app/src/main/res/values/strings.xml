@@ -13,6 +13,7 @@
     <string name="pet_button_create">Создать</string>
     <string name="pet_button_save">Сохранить</string>
     <string name="pet_button_delete">Удалить</string>
+    <string name="pet_error">Необходимо заполнить имя питомца!</string>
 
     <!--event-->
     <string name="event_new_title">Новое событие</string>
