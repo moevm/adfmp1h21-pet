@@ -83,4 +83,7 @@ dependencies {
 
     //test
     testImplementation "junit:junit:$junitVersion"
+
+    //work_manager
+    implementation "androidx.work:work-runtime:$workManagerVersion"
 }

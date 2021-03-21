@@ -58,4 +58,5 @@ ext {
     rxRelayVersion = "2.1.1"
     roomVersion = "2.2.6"
     junitVersion = "4.13.2"
+    workManagerVersion = "2.5.0"
 }
