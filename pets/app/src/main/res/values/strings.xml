@@ -59,4 +59,8 @@
     <string name="time_picker_select_time">Выберите время</string>
     <string name="time_picker_throw_off">Сбросить</string>
     <string name="time_picker_to_apply">Применить</string>
+
+    <!--notification-->
+    <string name="notification_channel_id">fcm_default_channel</string>
+    <string name="notification_channel_name">События</string>
 </resources>
