@@ -7,12 +7,16 @@ import android.content.res.Resources
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
+import android.text.InputType
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -35,6 +39,21 @@ fun AutoCompleteTextView.bind(action: (Any) -> Unit, map: (Int) -> Any) = addTex
         }
     }
     action(map(index))
+}
+
+fun EditText.setMultiLineCapSentencesAndDoneAction() {
+    imeOptions = EditorInfo.IME_ACTION_DONE
+    setRawInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES or InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+}
+
+fun BottomSheetDialog.setStateExpanded(){
+    setOnShowListener {
+        val dialog = it as BottomSheetDialog
+        val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+        BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
+        BottomSheetBehavior.from(bottomSheet).skipCollapsed = true
+        BottomSheetBehavior.from(bottomSheet).isHideable = true
+    }
 }
 
 @SuppressLint("ClickableViewAccessibility")

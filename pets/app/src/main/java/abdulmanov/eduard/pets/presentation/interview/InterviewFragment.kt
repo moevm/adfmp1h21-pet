@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import java.time.LocalDate
 
@@ -34,6 +35,7 @@ class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
         initUI()
 
         viewModel.currentInterview.observe(viewLifecycleOwner, Observer(::setInterview))
+        viewModel.showMessage.observe(viewLifecycleOwner, Observer(::showMessage))
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -61,6 +63,10 @@ class InterviewFragment : BaseFragment<FragmentInterviewBinding>() {
         binding.ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
             viewModel.createOrUpdateInterview(rating.toInt())
         }
+    }
+
+    private fun showMessage(message: String){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

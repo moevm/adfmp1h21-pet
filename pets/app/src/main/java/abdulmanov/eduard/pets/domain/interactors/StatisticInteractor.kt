@@ -12,14 +12,16 @@ class StatisticInteractor(private val interviewsRepository: InterviewsRepository
     fun getMonths(): Single<List<YearMonth>>{
         return interviewsRepository.getInterviews()
             .map {
-                it.groupBy { interview -> LocalDate.parse(interview.date).yearMonth }.keys.toList()
+                it.filter { interview -> interview.rating >= 1 }
+                    .groupBy { interview -> LocalDate.parse(interview.date).yearMonth }.keys.toList()
             }
     }
 
     fun getStatistic(month: YearMonth): Single<List<StatisticItem>> {
         return interviewsRepository.getInterviews()
             .map {
-                it.groupBy { interview -> LocalDate.parse(interview.date).yearMonth }
+                it.filter { interview -> interview.rating >= 1 }
+                    .groupBy { interview -> LocalDate.parse(interview.date).yearMonth }
                     .getValue(month)
                     .groupBy { group -> group.rating }
                     .map { group -> StatisticItem(group.key, group.value.size) }

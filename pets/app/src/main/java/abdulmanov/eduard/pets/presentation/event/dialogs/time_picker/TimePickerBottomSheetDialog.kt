@@ -3,11 +3,14 @@ package abdulmanov.eduard.pets.presentation.event.dialogs.time_picker
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.BottomDialogTimePickerBinding
 import abdulmanov.eduard.pets.presentation._common.base.BaseBottomSheetDialogFragment
+import abdulmanov.eduard.pets.presentation._common.extensions.setStateExpanded
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class TimePickerBottomSheetDialog: BaseBottomSheetDialogFragment<BottomDialogTimePickerBinding>() {
 
@@ -16,6 +19,12 @@ class TimePickerBottomSheetDialog: BaseBottomSheetDialogFragment<BottomDialogTim
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callback = parentFragment as? TimePickerCallback
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            setStateExpanded()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

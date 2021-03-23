@@ -37,7 +37,7 @@ class InterviewsRepositoryImpl(
         val dbModel = InterviewDbModel.fromDomain(interview)
 
         return interviewDao.updateInterview(dbModel)
-            .flatMap(interviewDao::getInterviewById)
+            .andThen(interviewDao.getInterviewById(interview.id))
             .map(InterviewDbModel::toDomain)
     }
 

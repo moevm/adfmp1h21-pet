@@ -9,6 +9,7 @@ import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
 import abdulmanov.eduard.pets.presentation._common.extensions.loadImg
+import abdulmanov.eduard.pets.presentation._common.extensions.setMultiLineCapSentencesAndDoneAction
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -62,6 +63,8 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
         binding.typeTextView.initSpinner(requireContext().resources.getStringArray(R.array.pets_type).toList())
         binding.yearTextView.initSpinner(BirthDate.getYears())
         binding.monthTextView.initSpinner(requireContext().resources.getStringArray(R.array.months_nominative).toList())
+
+        binding.nameTextInputEditText.setMultiLineCapSentencesAndDoneAction()
 
         binding.nameTextInputEditText.bind { viewModel.pet?.name = it }
         binding.typeTextView.bind { viewModel.pet?.type = it }

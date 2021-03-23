@@ -3,17 +3,16 @@ package abdulmanov.eduard.pets.presentation.event.dialogs.date_picker
 import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.databinding.BottomDialogDatePickerBinding
 import abdulmanov.eduard.pets.presentation._common.base.BaseBottomSheetDialogFragment
-import abdulmanov.eduard.pets.presentation._common.extensions.dpToPx
-import abdulmanov.eduard.pets.presentation._common.extensions.getDaysOfWeekFromLocale
-import abdulmanov.eduard.pets.presentation._common.extensions.getMonthsForCalendar
-import abdulmanov.eduard.pets.presentation._common.extensions.getScreenSize
+import abdulmanov.eduard.pets.presentation._common.extensions.*
 import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.helpers.DatePickerDayBinder
 import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.helpers.DatePickerMonthHeaderBinder
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kizitonwose.calendarview.utils.Size
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -27,6 +26,12 @@ class DatePickerBottomSheetDialog: BaseBottomSheetDialogFragment<BottomDialogDat
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callback = parentFragment as DatePickerCallback
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            setStateExpanded()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

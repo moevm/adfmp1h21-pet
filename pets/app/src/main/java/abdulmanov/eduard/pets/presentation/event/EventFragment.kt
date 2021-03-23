@@ -8,6 +8,7 @@ import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
+import abdulmanov.eduard.pets.presentation._common.extensions.setMultiLineCapSentencesAndDoneAction
 import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.DatePickerBottomSheetDialog
 import abdulmanov.eduard.pets.presentation.event.dialogs.time_picker.TimePickerBottomSheetDialog
 import abdulmanov.eduard.pets.presentation.event.model.EventPresentationModel
@@ -71,6 +72,8 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
         }
 
         binding.repeatModeTextView.initSpinner(requireContext().resources.getStringArray(R.array.repeat_mode).toList())
+
+        binding.nameTextInputEditText.setMultiLineCapSentencesAndDoneAction()
 
         binding.nameTextInputEditText.bind { viewModel.event?.name = it }
         binding.dateTextInputEditText.bind { viewModel.event?.date = it }

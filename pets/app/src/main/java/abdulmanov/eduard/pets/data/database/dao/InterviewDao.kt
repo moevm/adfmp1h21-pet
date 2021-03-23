@@ -13,7 +13,7 @@ abstract class InterviewDao {
     abstract fun insertInterview(interview: InterviewDbModel): Single<Long>
 
     @Update
-    abstract fun updateInterview(interview: InterviewDbModel): Single<Int>
+    abstract fun updateInterview(interview: InterviewDbModel): Completable
 
     @Query("DELETE FROM ${InterviewDbModel.TABLE_NAME} WHERE ${InterviewDbModel.COLUMN_ID} = :id")
     abstract fun deleteById(id: Int): Completable

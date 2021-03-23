@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_gravity="start"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textSize="@dimen/font_normal_big"
             android:textStyle="bold"
             android:textColor="@android:color/white"

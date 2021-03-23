@@ -45,6 +45,7 @@
     <string name="interview_toolbar_title">Ежедневный опрос</string>
     <string name="interview_pet_icon_label">Оцените настроение вашего питомца</string>
     <string name="interview_footer">Проходите опрос каждый день для полчения статистики в конце месяца</string>
+    <string name="interview_save">Ваша оценка сохранена \nВы можете изменить оценку</string>
 
     <!--statistic-->
     <string name="statistic_toolbar_title">Статистика</string>
