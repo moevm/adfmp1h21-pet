@@ -1,8 +1,10 @@
 package abdulmanov.eduard.pets.presentation.pet
 
+import abdulmanov.eduard.pets.R
 import abdulmanov.eduard.pets.domain.interactors.PetsInteractor
 import abdulmanov.eduard.pets.presentation.Screens
 import abdulmanov.eduard.pets.presentation._common.FilesProvider
+import abdulmanov.eduard.pets.presentation._common.StringProvider
 import abdulmanov.eduard.pets.presentation._common.viewmodel.BaseViewModel
 import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
 import android.net.Uri
@@ -17,6 +19,7 @@ import javax.inject.Inject
 
 class PetViewModel @Inject constructor(
     private val router: Router,
+    private val stringProvider: StringProvider,
     private val filesProvider: FilesProvider,
     private val petsInteractor: PetsInteractor
 ) : BaseViewModel() {
@@ -32,6 +35,10 @@ class PetViewModel @Inject constructor(
     private val _initializationFieldsEvent = LiveEvent<Unit>()
     val initializationFieldsEvent: LiveData<Unit>
         get() = _initializationFieldsEvent
+
+    private val _showMessageEvent = LiveEvent<String>()
+    val showMessageEvent: LiveData<String>
+        get() = _showMessageEvent
 
     var pet: PetPresentationModel? = null
 
@@ -52,26 +59,27 @@ class PetViewModel @Inject constructor(
                 }
                 file
             }
-        ).safeSubscribe {
-            pet!!.avatar = Uri.fromFile(it).toString()
-            Log.d("FuckFuck", pet!!.avatar)
-        }
+        ).safeSubscribe { pet!!.avatar = Uri.fromFile(it).toString() }
     }
 
     fun createOrUpdatePet() {
         if (_showApplyProgress.value != true && pet != null) {
-            getCompletableCreateOrUpdate()
-                .addDispatchers()
-                .doOnSubscribe { _showApplyProgress.value = true }
-                .doOnTerminate { _showApplyProgress.value = false }
-                .subscribe {
-                    if (pet!!.isNew()) {
-                        router.newRootScreen(Screens.calendar())
-                    } else {
-                        router.exit()
+            if(pet!!.name.isNotEmpty()) {
+                getCompletableCreateOrUpdate()
+                    .addDispatchers()
+                    .doOnSubscribe { _showApplyProgress.value = true }
+                    .doOnTerminate { _showApplyProgress.value = false }
+                    .subscribe {
+                        if (pet!!.isNew()) {
+                            router.newRootScreen(Screens.calendar())
+                        } else {
+                            router.exit()
+                        }
                     }
-                }
-                .connect()
+                    .connect()
+            } else {
+                _showMessageEvent.value = stringProvider.getString(R.string.pet_error)
+            }
         }
     }
 

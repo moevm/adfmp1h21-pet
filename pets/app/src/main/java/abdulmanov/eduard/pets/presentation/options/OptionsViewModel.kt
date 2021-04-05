@@ -23,5 +23,6 @@ class OptionsViewModel @Inject constructor(
     }
 
     fun openScreenStatistic() {
+        router.navigateTo(Screens.statistic())
     }
 }

@@ -9,6 +9,7 @@ import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
 import abdulmanov.eduard.pets.presentation._common.extensions.loadImg
+import abdulmanov.eduard.pets.presentation._common.extensions.setMultiLineCapSentencesAndDoneAction
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -20,6 +21,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.core.os.bundleOf
@@ -46,6 +48,7 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
         viewModel.showApplyProgress.observe(viewLifecycleOwner, Observer(binding.applyProgressButton::showProgress))
         viewModel.showDeleteProgress.observe(viewLifecycleOwner, Observer(binding.deleteProgressButton::showProgress))
         viewModel.initializationFieldsEvent.observe(viewLifecycleOwner, { initFields() })
+        viewModel.showMessageEvent.observe(viewLifecycleOwner, Observer(::showMessage))
 
         if (savedInstanceState == null) {
             viewModel.setPetOrDefault(petId)
@@ -60,6 +63,8 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
         binding.typeTextView.initSpinner(requireContext().resources.getStringArray(R.array.pets_type).toList())
         binding.yearTextView.initSpinner(BirthDate.getYears())
         binding.monthTextView.initSpinner(requireContext().resources.getStringArray(R.array.months_nominative).toList())
+
+        binding.nameTextInputEditText.setMultiLineCapSentencesAndDoneAction()
 
         binding.nameTextInputEditText.bind { viewModel.pet?.name = it }
         binding.typeTextView.bind { viewModel.pet?.type = it }
@@ -109,6 +114,10 @@ class PetFragment : BaseFragment<FragmentPetBinding>() {
             viewModel.saveImageToInternalStorage(result.data!!.data!!)
             binding.avatarImageView.loadImg(result.data!!.data!!.toString())
         }
+    }
+
+    private fun showMessage(message: String){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

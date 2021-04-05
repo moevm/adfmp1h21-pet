@@ -2,11 +2,8 @@ package abdulmanov.eduard.pets.presentation.event
 
 
 import abdulmanov.eduard.pets.domain.interactors.EventsInteractor
-import abdulmanov.eduard.pets.domain.repositories.EventsRepository
-import abdulmanov.eduard.pets.presentation.Screens
 import abdulmanov.eduard.pets.presentation._common.viewmodel.BaseViewModel
 import abdulmanov.eduard.pets.presentation.event.model.EventPresentationModel
-import abdulmanov.eduard.pets.presentation.pet.model.PetPresentationModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.terrakok.cicerone.Router
@@ -28,6 +25,10 @@ class EventViewModel @Inject constructor(
     val initializationFieldsEvent: LiveData<Unit>
         get() = _initializationFieldsEvent
 
+    private val _createNotificationEvent = LiveEvent<EventPresentationModel>()
+    val createNotificationEvent: LiveData<EventPresentationModel>
+        get() = _createNotificationEvent
+
     var event: EventPresentationModel? = null
 
     fun onBackCommandClick() = router.exit()
@@ -41,23 +42,33 @@ class EventViewModel @Inject constructor(
 
     fun createOrUpdateEvent(){
         if (_showApplyProgress.value != true && event != null) {
-            getCompletableCreateOrUpdate()
+            getSingleCreateOrUpdate()
                 .addDispatchers()
                 .doOnSubscribe { _showApplyProgress.value = true }
-                .doOnTerminate { _showApplyProgress.value = false }
-                .subscribe { router.exit() }
+                .subscribe { event ->
+                    _showApplyProgress.value = false
+
+                    val isCreateNotification = (this.event!!.isNew() && this.event!!.isNotification)
+                        || (this.event!!.date != event.date || this.event!!.time != event.time)
+
+                    if(isCreateNotification) {
+                        _createNotificationEvent.value = event
+                    }else{
+                        router.exit()
+                    }
+                }
                 .connect()
         }
     }
 
-    private fun getCompletableCreateOrUpdate(): Completable {
+    private fun getSingleCreateOrUpdate(): Single<EventPresentationModel> {
         val domainModel = EventPresentationModel.toDomain(event!!)
 
         return if (event!!.isNew()) {
             eventsInteractor.createEvent(domainModel)
         } else {
             eventsInteractor.updateEvent(domainModel)
-        }
+        }.map(EventPresentationModel::fromDomain)
     }
 
     private fun getSingleEvent(eventId: Int): Single<EventPresentationModel> {

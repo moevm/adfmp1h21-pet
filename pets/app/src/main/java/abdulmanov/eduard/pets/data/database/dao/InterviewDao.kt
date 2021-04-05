@@ -1,6 +1,7 @@
 package abdulmanov.eduard.pets.data.database.dao
 
 import abdulmanov.eduard.pets.data.database.models.InterviewDbModel
+import abdulmanov.eduard.pets.domain.models.interview.Interview
 import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -16,6 +17,9 @@ abstract class InterviewDao {
 
     @Query("DELETE FROM ${InterviewDbModel.TABLE_NAME} WHERE ${InterviewDbModel.COLUMN_ID} = :id")
     abstract fun deleteById(id: Int): Completable
+
+    @Query("SELECT * FROM ${InterviewDbModel.TABLE_NAME} WHERE ${InterviewDbModel.COLUMN_DATE} = :date AND ${InterviewDbModel.COLUMN_ID_PET} = :petId")
+    abstract fun getInterviewByDate(date:String, petId:Int): Single<InterviewDbModel>
 
     @Query("SELECT * FROM ${InterviewDbModel.TABLE_NAME} WHERE ${InterviewDbModel.COLUMN_ID} = :id")
     abstract fun getInterviewById(id: Int): Single<InterviewDbModel>

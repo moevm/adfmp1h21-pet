@@ -60,6 +60,7 @@ dependencies {
     implementation "com.leinardi.android:speed-dial:$speedDialVersion"
     implementation "com.github.liverm0r:delegateadapters:$delegateAdapterVersion"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.github.PhilJay:MPAndroidChart:$chartVersion"
 
     //singleLiveEvent
     implementation "com.github.hadilq.liveevent:liveevent:$liveEventVersion"
@@ -79,4 +80,10 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-rxjava2:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+
+    //test
+    testImplementation "junit:junit:$junitVersion"
+
+    //work_manager
+    implementation "androidx.work:work-runtime:$workManagerVersion"
 }

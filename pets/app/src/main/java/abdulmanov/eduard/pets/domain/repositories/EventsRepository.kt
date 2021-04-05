@@ -10,9 +10,9 @@ interface EventsRepository {
 
     fun getEventById(id: Int): Single<Event>
 
-    fun createEvent(event: Event): Completable
+    fun createEvent(event: Event): Single<Event>
 
-    fun updateEvent(event: Event): Completable
+    fun updateEvent(event: Event): Single<Event>
 
     fun deleteEvent(eventId: Int): Completable
 }

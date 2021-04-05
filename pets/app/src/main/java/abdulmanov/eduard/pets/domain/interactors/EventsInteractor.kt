@@ -10,15 +10,15 @@ import java.time.LocalDate
 
 class EventsInteractor(private val eventsRepository: EventsRepository) {
 
-    fun getEventById(id: Int): Single<Event>{
+    fun getEventById(id: Int): Single<Event> {
         return eventsRepository.getEventById(id)
     }
 
-    fun createEvent(event: Event): Completable {
+    fun createEvent(event: Event): Single<Event> {
         return eventsRepository.createEvent(event)
     }
 
-    fun updateEvent(event: Event): Completable {
+    fun updateEvent(event: Event): Single<Event> {
         return eventsRepository.updateEvent(event)
     }
 
@@ -39,12 +39,14 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
                         }
                         RepeatMode.REPEAT_EVERY_WEEK -> {
                             val dateEvent = LocalDate.parse(it.date)
-                            date.dayOfWeek.value == dateEvent.dayOfWeek.value
+                            (dateEvent.isBefore(date) || it.date == date.toString())
+                                && date.dayOfWeek.value == dateEvent.dayOfWeek.value
                         }
                         RepeatMode.REPEAT_EVERY_MONTH -> {
                             //TODO корнер кейсы
                             val dateEvent = LocalDate.parse(it.date)
-                            date.dayOfMonth == dateEvent.dayOfMonth
+                            (dateEvent.isBefore(date) || it.date == date.toString())
+                                && date.dayOfMonth == dateEvent.dayOfMonth
                         }
                     }
                 }
@@ -56,5 +58,6 @@ class EventsInteractor(private val eventsRepository: EventsRepository) {
             if(isDone) add(date.toString()) else remove(date.toString())
         }
         return eventsRepository.updateEvent(event.copy(doneDates = updatedDoneDates))
+            .ignoreElement()
     }
 }

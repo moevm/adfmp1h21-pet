@@ -30,9 +30,9 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:hint="@string/interview_day_type"
                 android:orientation="horizontal"
                 android:theme="@style/TextInputLayout"
+                app:hintEnabled="false"
                 app:boxBackgroundColor="@android:color/white"
                 app:endIconMode="dropdown_menu"
                 app:endIconTint="@color/colorIconLight"
@@ -96,20 +96,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iconLabel"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:lineSpacingMultiplier="1.25"
-                android:textColor="@color/colorTextSecondary"
-                android:text="@string/interview_footer"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintWidth_percent="0.7"/>
-
+            
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

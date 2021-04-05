@@ -10,10 +10,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.work.WorkManager
 
 class EditEventBottomSheetDialog: BaseBottomSheetDialogFragment<BottomDialogEditEventBinding>() {
 
     private val viewModel by initViewModel<EditEventViewModel>()
+
+    private val event by lazy {
+        requireArguments().getParcelable<EventPresentationModel>(ARG_EVENT)!!
+    }
 
     private lateinit var callback: EditEventUpdate
 
@@ -36,7 +41,6 @@ class EditEventBottomSheetDialog: BaseBottomSheetDialogFragment<BottomDialogEdit
     }
 
     private fun initUI(){
-        val event = requireArguments().getParcelable<EventPresentationModel>(ARG_EVENT)!!
 
         binding.titleTextView.text = event.name
 
@@ -51,6 +55,8 @@ class EditEventBottomSheetDialog: BaseBottomSheetDialogFragment<BottomDialogEdit
     }
 
     private fun callCallbackAndDismiss(){
+        WorkManager.getInstance(requireContext())
+            .cancelUniqueWork(event.id.toString())
         callback.onUpdate()
         dismiss()
     }

@@ -8,14 +8,22 @@ import abdulmanov.eduard.pets.presentation._common.base.BaseFragment
 import abdulmanov.eduard.pets.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.pets.presentation._common.extensions.bind
 import abdulmanov.eduard.pets.presentation._common.extensions.initSpinner
+import abdulmanov.eduard.pets.presentation._common.extensions.setMultiLineCapSentencesAndDoneAction
 import abdulmanov.eduard.pets.presentation.event.dialogs.date_picker.DatePickerBottomSheetDialog
 import abdulmanov.eduard.pets.presentation.event.dialogs.time_picker.TimePickerBottomSheetDialog
+import abdulmanov.eduard.pets.presentation.event.model.EventPresentationModel
+import abdulmanov.eduard.pets.presentation.notify.NotifyWork
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class EventFragment : BaseFragment<FragmentEventBinding>(),
     TimePickerBottomSheetDialog.TimePickerCallback,
@@ -37,6 +45,7 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
 
         viewModel.showApplyProgress.observe(viewLifecycleOwner, Observer(binding.applyProgressButton::showProgress))
         viewModel.initializationFieldsEvent.observe(viewLifecycleOwner, { initFields() })
+        viewModel.createNotificationEvent.observe(viewLifecycleOwner, Observer(::createNotification))
 
         if (savedInstanceState == null) {
             viewModel.setEventOrDefault(eventId)
@@ -63,6 +72,8 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
         }
 
         binding.repeatModeTextView.initSpinner(requireContext().resources.getStringArray(R.array.repeat_mode).toList())
+
+        binding.nameTextInputEditText.setMultiLineCapSentencesAndDoneAction()
 
         binding.nameTextInputEditText.bind { viewModel.event?.name = it }
         binding.dateTextInputEditText.bind { viewModel.event?.date = it }
@@ -111,6 +122,31 @@ class EventFragment : BaseFragment<FragmentEventBinding>(),
 
         val repeatMode = binding.repeatModeTextView.adapter.getItem(event.repeatMode.value) as String
         binding.repeatModeTextView.setText(repeatMode,false)
+    }
+
+    private fun createNotification(event: EventPresentationModel){
+        val data = NotifyWork.newData(event.id)
+
+        val currentCalendar = Calendar.getInstance()
+        val notifyCalendar = EventPresentationModel.getCalendar(event)
+
+        if (notifyCalendar.before(currentCalendar)) {
+            notifyCalendar.add(Calendar.HOUR_OF_DAY, 24)
+        }
+
+        val delay = notifyCalendar.timeInMillis - currentCalendar.timeInMillis
+
+        val dailyWorkRequest = OneTimeWorkRequest.Builder(NotifyWork::class.java)
+            .setInputData(data)
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .addTag(event.id.toString())
+            .build()
+
+        WorkManager.getInstance(requireContext())
+            .beginUniqueWork(event.id.toString(), ExistingWorkPolicy.REPLACE, dailyWorkRequest)
+            .enqueue()
+
+        viewModel.onBackCommandClick()
     }
 
     companion object {
